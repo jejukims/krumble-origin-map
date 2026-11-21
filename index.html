@@ -469,7 +469,8 @@ function drawPins() {
 }
 
 function fitVisible() {
-  const pts = visibleItems().map((i) => [i.lat, i.lon]);
+  const items = visibleItems().filter((i) => state.filter === "lineup" ? i.lineup : !i.lineup);
+  const pts = items.map((i) => [i.lat, i.lon]);
   if (!pts.length) return;
   if (pts.length === 1) { map.flyTo(pts[0], 7, { duration: .8 }); return; }
   map.flyToBounds(pts, { padding: [34, 34], duration: .8, maxZoom: 7 });
