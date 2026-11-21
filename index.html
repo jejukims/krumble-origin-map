@@ -468,6 +468,13 @@ function drawPins() {
   updateHint();
 }
 
+function fitVisible() {
+  const pts = visibleItems().map((i) => [i.lat, i.lon]);
+  if (!pts.length) return;
+  if (pts.length === 1) { map.flyTo(pts[0], 7, { duration: .8 }); return; }
+  map.flyToBounds(pts, { padding: [34, 34], duration: .8, maxZoom: 7 });
+}
+
 function updateHint() {
   const el = $("#mapHint");
   if (!state.ready) { el.innerHTML = `<span class="spin"></span>카탈로그를 불러오는 중…`; return; }
@@ -494,7 +501,8 @@ function renderChips() {
   el.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
     state.filter = b.dataset.f;
     state.bean = null; state.place = null; state.results = null;
-    renderChips(); renderSheet(); drawPins(); syncUrl();
+    state.query = ""; qEl.value = "";
+    renderChips(); renderSheet(); drawPins(); fitVisible(); syncUrl();
   }));
 }
 
