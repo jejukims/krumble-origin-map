@@ -249,8 +249,39 @@
   .refine .hit .hd{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px;line-height:1.5}
   .refine .hit .go{flex:none;font-size:10.5px;font-weight:800;color:var(--terra);padding-top:2px}
 
-  .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center}
-  .empty h3{margin:0 0 6px;font-size:14.5px;font-weight:800}
+  .story2{margin:16px 0 0;padding:14px;background:#FFFDF6;border:1px solid #EADFCB;border-radius:12px}
+  .story2 h3,.awards h3,.revbox h3{margin:0 0 8px;font-size:10.5px;font-weight:800;letter-spacing:.13em;color:#9A8F80;text-transform:uppercase}
+  .story2 p{margin:0;font-size:12.5px;line-height:1.75;color:#3D372F;word-break:keep-all}
+  .facts{display:grid;grid-template-columns:1fr;gap:1px;margin:11px 0 0;background:#EFE6D6;border-radius:9px;overflow:hidden}
+  .facts div{background:#FFFDF6;padding:7px 10px;display:flex;gap:8px;font-size:11.5px;line-height:1.55}
+  .facts dt{flex:none;width:46px;font-weight:800;color:#9A8F80;font-size:10px;padding-top:2px;letter-spacing:.03em}
+  .facts dd{margin:0;font-weight:700;color:#3D372F}
+  .awards{margin:14px 0 0}
+  .awards ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .awards li{position:relative;font-size:11.5px;font-weight:700;line-height:1.55;color:#6B4A28;background:#FBF3E3;border:1px solid #EFDFC9;border-radius:9px;padding:7px 10px 7px 26px}
+  .awards li::before{content:"★";position:absolute;left:9px;top:6px;color:#C2603C;font-size:11px}
+
+  /* comments from roasters */
+  .revbox{margin:16px 0 0;padding:13px;background:#F8F5EF;border:1px solid var(--line);border-radius:12px}
+  .revlist{display:flex;flex-direction:column;gap:6px}
+  .revlist .empty-rev{font-size:11.5px;line-height:1.6;color:#9A8F80}
+  .revitem{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .revitem .rh{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px}
+  .revitem .who{font-weight:800;color:#3D372F}
+  .revitem .roast{font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:2px 6px;border-radius:4px;background:#EFE9DF;color:#6B5B45;text-transform:uppercase}
+  .revitem .when{margin-left:auto;font-size:10px;color:#A79C8D}
+  .revitem .rt2{margin:4px 0 0;font-size:12px;line-height:1.6;color:#3D372F;word-break:keep-all}
+  .revform{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+  .revform input,.revform select,.revform textarea{
+    width:100%;font:inherit;font-size:11.5px;padding:8px 9px;border:1px solid var(--line);
+    border-radius:8px;background:#fff;color:var(--ink);min-width:0;
+  }
+  .revform .wide{grid-column:1/-1}
+  .revform button{grid-column:1/-1;font-size:11.5px;font-weight:800;padding:9px;border-radius:9px;background:var(--ink);color:#FFF8EF}
+  .revform button:disabled{opacity:.6}
+  .revnote{margin:7px 0 0;font-size:10px;line-height:1.55;color:#A79C8D}
+
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center}  .empty h3{margin:0 0 6px;font-size:14.5px;font-weight:800}
   .empty p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.65}
   .empty .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px}
   .empty .tags button{font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:999px;background:var(--cream-2);color:var(--ink-soft)}
@@ -560,11 +591,15 @@ function cardForPlace(p) {
     </dl>
     ${notes.length ? `<div class="notes">${notes.slice(0, 10).map(([n, c]) => `<span class="note">${esc(n)}${c > 1 ? ` <small style="opacity:.6">${c}</small>` : ""}</span>`).join("")}</div>` : ""}
     ${vars.length ? `<p class="story">품종: ${vars.slice(0, 6).map(([k, v]) => `${esc(k)} <small style="color:#9A8F80">${v}</small>`).join(" · ")}</p>` : ""}
+    ${storyBlock(p)}
+    ${awardsBlock(p)}
     <div class="src">
       <div class="row"><span class="k">좌표</span><span>${esc(p.evidence || "OpenStreetMap")} ${p.precision === "country" ? "· 국가 대표 좌표" : ""}</span></div>
       ${p.source ? `<div class="row"><span class="k">근거</span><span><a href="${esc(p.source)}" target="_blank" rel="noopener">농장·산지 소재 자료</a></span></div>` : ""}
       ${p.precision === "village" ? `<div class="row"><span class="k">단위</span><span>농장이 있는 마을·베레다 중심 좌표입니다.</span></div>` : ""}
     </div>
+    ${refsBlock(p)}
+    ${reviewsBlock(p.id)}
     <div class="qr">
       <code>${esc(location.origin + location.pathname + "?place=" + encodeURIComponent(p.id))}</code>
       <button class="copy" data-copy="${esc(location.origin + location.pathname + "?place=" + encodeURIComponent(p.id))}">링크 복사</button>
@@ -625,6 +660,8 @@ function cardForBean(b) {
       <div class="row"><span class="k">안내</span><span>가격·매입 정보는 넣지 않습니다.</span></div>
     </div>
     ${p && p.precision === "country" ? refineBlock(b) : ""}
+    ${p && p.kind === "farm" && p.story ? `${storyBlock(p)}${awardsBlock(p, 3)}` : ""}
+    ${p ? reviewsBlock(p.id) : ""}
     <div class="qr">
       <code>${esc(location.origin + location.pathname + "?bean=" + encodeURIComponent(b.id))}</code>
       <button class="copy" data-copy="${esc(location.origin + location.pathname + "?bean=" + encodeURIComponent(b.id))}">링크 복사</button>
@@ -718,6 +755,134 @@ async function lookupFarm(btn) {
   } finally {
     btn.disabled = false;
   }
+}
+
+/* ---------- 농장 이야기 · 수상 내역 ---------- */
+function factsBlock(p) {
+  const rows = [];
+  if (p.producer) rows.push(["생산자", p.producer]);
+  if (p.founded) rows.push(["설립", p.founded]);
+  if (p.elevation) rows.push(["고도", p.elevation]);
+  if (!rows.length) return "";
+  return `<dl class="facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`;
+}
+
+function storyBlock(p) {
+  if (!p.story) return "";
+  return `<div class="story2">
+    <h3>농장 이야기</h3>
+    <p>${esc(p.story)}</p>
+    ${factsBlock(p)}
+  </div>`;
+}
+
+function awardsBlock(p, limit) {
+  const a = p.awards || [];
+  if (!a.length) return "";
+  const list = limit ? a.slice(0, limit) : a;
+  return `<div class="awards">
+    <h3>수상 · 기록</h3>
+    <ul>${list.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+    ${limit && a.length > limit ? `<p class="qr-note">외 ${a.length - limit}건은 농장 카드에서 볼 수 있습니다.</p>` : ""}
+  </div>`;
+}
+
+function refsBlock(p) {
+  const r = p.refs || [];
+  if (!r.length) return "";
+  return `<div class="src" style="margin-top:12px">
+    <div class="row"><span class="k">자료</span><span>${r.map((x) => `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`).join(" · ")}</span></div>
+  </div>`;
+}
+
+/* ---------- 로스터 한줄 후기 (지금은 브라우저 저장, 나중에 공용 DB로 교체) ----------
+   이 두 함수만 서버 API로 바꿔 끼우면 됩니다.
+     loadReviews(placeId) -> Promise<[{name, roast, text, at}]>
+     saveReview(placeId, review) -> Promise<review[]>                                      */
+const REVIEW_KEY = "krumble.roastReviews.v1";
+const ROASTS = ["라이트", "미디엄라이트", "미디엄", "다크"];
+
+function readReviewStore() {
+  try {
+    if (typeof localStorage === "undefined") return {};
+    return JSON.parse(localStorage.getItem(REVIEW_KEY) || "{}") || {};
+  } catch (e) { return {}; }
+}
+function writeReviewStore(obj) {
+  try {
+    if (typeof localStorage !== "undefined") localStorage.setItem(REVIEW_KEY, JSON.stringify(obj));
+  } catch (e) { /* 저장 공간이 없는 브라우저는 조용히 넘어감 */ }
+}
+
+async function loadReviews(placeId) {
+  const all = readReviewStore();
+  return Array.isArray(all[placeId]) ? all[placeId].slice() : [];
+}
+
+async function saveReview(placeId, review) {
+  const all = readReviewStore();
+  const list = Array.isArray(all[placeId]) ? all[placeId] : [];
+  list.push(review);
+  all[placeId] = list;
+  writeReviewStore(all);
+  return list.slice();
+}
+
+function reviewsBlock(placeId) {
+  return `<div class="revbox" data-rev="${esc(placeId)}">
+    <h3>로스터 한줄 후기</h3>
+    <div class="revlist" data-revlist="1"><p class="empty-rev">불러오는 중…</p></div>
+    <form class="revform" data-revform="1" autocomplete="off">
+      <input name="name" type="text" maxlength="30" placeholder="로스터리 이름" aria-label="로스터리 이름" required />
+      <select name="roast" aria-label="배전도">${ROASTS.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join("")}</select>
+      <input class="wide" name="text" type="text" maxlength="120" placeholder="로스팅·추출 한줄 후기" aria-label="한줄 후기" required />
+      <button type="submit">후기 등록</button>
+    </form>
+    <p class="revnote">지금은 이 기기에만 임시 저장됩니다 · 추후 공용 DB를 연결하면 모든 로스터와 공유됩니다.</p>
+  </div>`;
+}
+
+function reviewItemHTML(r) {
+  const when = r.at ? new Date(r.at) : null;
+  const stamp = when && !isNaN(when) ? `${when.getFullYear()}.${String(when.getMonth() + 1).padStart(2, "0")}.${String(when.getDate()).padStart(2, "0")}` : "";
+  return `<div class="revitem">
+    <div class="rh"><span class="who">${esc(r.name || "로스터")}</span><span class="roast">${esc(r.roast || "-")}</span><span class="when">${stamp}</span></div>
+    <p class="rt2">${esc(r.text || "")}</p>
+  </div>`;
+}
+
+async function hydrateReviews(root) {
+  const boxes = (root || sheetEl).querySelectorAll("[data-rev]");
+  for (const box of boxes) {
+    const id = box.dataset.rev;
+    const list = box.querySelector("[data-revlist]");
+    if (!list) continue;
+    const items = await loadReviews(id);
+    list.innerHTML = items.length
+      ? items.slice(-20).reverse().map(reviewItemHTML).join("")
+      : `<p class="empty-rev">아직 후기가 없습니다. 이 농장을 볶아 본 로스터의 첫 후기를 남겨 보세요.</p>`;
+  }
+}
+
+function bindReviews(root) {
+  (root || sheetEl).querySelectorAll("[data-revform]").forEach((form) => {
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const box = form.closest("[data-rev]");
+      const id = box && box.dataset.rev;
+      if (!id) return;
+      const name = (form.elements.name.value || "").trim();
+      const roast = form.elements.roast.value || "미디엄";
+      const text = (form.elements.text.value || "").trim();
+      if (text.length < 2) { form.elements.text.focus(); return; }
+      const btn = form.querySelector("button");
+      if (btn) btn.disabled = true;
+      await saveReview(id, { name: name || "익명 로스터", roast, text, at: Date.now() });
+      form.reset();
+      if (btn) btn.disabled = false;
+      await hydrateReviews(box.parentElement || sheetEl);
+    });
+  });
 }
 
 function countNotes(beans) {  const m = new Map();
@@ -815,6 +980,8 @@ function bindSheet() {
     catch { b.textContent = "복사 실패"; }
   }));
   sheetEl.querySelectorAll("[data-lookup]").forEach((b) => b.addEventListener("click", () => lookupFarm(b)));
+  bindReviews(sheetEl);
+  hydrateReviews(sheetEl);
 }
 
 /* ---------- 선택 ---------- */

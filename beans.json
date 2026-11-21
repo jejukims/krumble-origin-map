@@ -22,9 +22,9 @@
 "farms": 28
 },
 "precision": {
-"farm": 88,
+"farm": 78,
 "region": 703,
-"village": 276,
+"village": 286,
 "country": 1779
 },
 "coordSource": "Photon/OpenStreetMap (ODbL), 일부 주요 산지는 관리 중심지 좌표로 보정"
@@ -341,6 +341,25 @@
 "precision": "farm",
 "evidence": "OSM Hacienda La Esmeralda, Palmira, Boquete",
 "source": "https://haciendaesmeralda.com/jaramillo-farm/",
+"producer": "피터슨 가문 (Peterson)",
+"founded": "1967년 매입 (자라미요 농장 1997년)",
+"elevation": "1,450–1,800 m",
+"story": "보케테의 팔미라·카냐스 베르데스, 그리고 바루 화산 자락의 자라미요 농장으로 이루어져 있습니다. 2004년 자라미요의 한 구획을 따로 분리해 출품한 게이샤가 Best of Panama에서 우승하며 파나마 게이샤를 세계에 알렸고, 그해 경매 최고가 기록을 세웠습니다.",
+"awards": [
+"Best of Panama 2004 1위(게이샤 최초 공개·경매 기록)",
+"2006년 그린빈 최초 US$50/lb 돌파",
+"2017년 경매 US$601/lb 기록"
+],
+"refs": [
+{
+"t": "농장 연혁",
+"u": "https://haciendaesmeralda.com/our-story/"
+},
+{
+"t": "SCAP 프로필",
+"u": "https://scap-panama.com/haciendaesmeralda/"
+}
+],
 "beanCount": 22
 },
 {
@@ -510,6 +529,27 @@
 "precision": "village",
 "evidence": "베레다 로스 아라도스, Piendamó–Tunía · OSM Los Arados · 농장 주소 Km29 Popayán–Cali",
 "source": "https://bibliotecadigital.univalle.edu.co/handle/10893/19867",
+"producer": "디에고 사무엘 베르무데스 타피아 (Diego Samuel Bermúdez)",
+"founded": "2005년 땅을 사 2008년부터 커피 재배",
+"elevation": "1,780–2,100 m",
+"story": "카우카 피엔다모의 베레다 로스 아라도스, 파나메리카나 도로 29km 지점(포파얀–칼리)에 있습니다. 베르무데스 가족이 2005년 이 땅을 사 2008년부터 커피를 심었고, 2012년 형 알렉스와 함께 가공 연구회사 INDESTEC을 세우면서 정밀 발효와 열충격(thermal shock) 가공으로 이름을 알렸습니다. 체리를 오래 발효시켜 장미·리치 같은 향을 끌어내는 더블 무산소 계열 롯으로 유명합니다.",
+"awards": [
+"Taza de Excelencia 콜롬비아 2018 89.76점 · 더블 무산소 보르본"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://www.fincaelparaiso.com/farms"
+},
+{
+"t": "INDESTEC·농장 소개",
+"u": "https://www.allycoffee.com/coffees/finca-el-paraiso-indestec-regional-enigma/"
+},
+{
+"t": "전략계획 연구(위치·연혁)",
+"u": "https://bibliotecadigital.univalle.edu.co/server/api/core/bitstreams/36a3d066-e462-478e-adb2-9726d8aa62ba/content"
+}
+],
 "beanCount": 15
 },
 {
@@ -547,6 +587,24 @@
 "precision": "farm",
 "evidence": "OSM Finca Lerida, Los Naranjos, Boquete",
 "source": "https://fincalerida.com/",
+"producer": "아모루소 가문 (Amoruso) — 로넬라 엔터프라이즈",
+"founded": "1917년 땅 매입, 1924년 정착",
+"elevation": "1,500–2,000 m",
+"story": "파나마 운하의 비상 수문을 설계한 노르웨이 엔지니어 톨레프 바헤 뫼니케가 1924년 보케테에 정착해 손으로 지은 집과 함께 만든 농장입니다. 1929년 파나마 커피를 처음으로 독일에 수출했고, 그가 만든 선별 장치 '시폰'은 지금도 쓰입니다.",
+"awards": [
+"Best of Panama 2001 1위",
+"Best of Panama 2017 트레디셔널 워시드 1위(Moi Honey)"
+],
+"refs": [
+{
+"t": "SCAP 프로필",
+"u": "https://scap-panama.com/finca-lerida/"
+},
+{
+"t": "농장 연혁",
+"u": "https://hotelfincalerida.com/finca-lerida-coffee-history/"
+}
+],
 "beanCount": 14
 },
 {
@@ -560,6 +618,15 @@
 "precision": "region",
 "evidence": "Pitalito, Huila(라쏘 가문 농장) · OSM Pitalito",
 "source": "https://www.cafenogales.co.kr/product/ETR1954",
+"producer": "라쏘 가문 — 호세 우리베 라쏘",
+"elevation": "1,650 m",
+"story": "엘 디비소를 운영하는 라쏘 가문이 아버지의 첫 농장 이름('승리')을 따라 피탈리토에 새로 세운 농장입니다. 수단 루메·오렌지 버본 같은 품종에 모스토(체리 주스)를 활용한 발효를 더합니다.",
+"refs": [
+{
+"t": "수입사 소개",
+"u": "https://www.cafenogales.co.kr/product/ETR1954"
+}
+],
 "beanCount": 13
 },
 {
@@ -609,6 +676,25 @@
 "precision": "farm",
 "evidence": "OSM Beneficio Don Mayo, San Marcos, Tarrazú",
 "source": "https://www.openstreetmap.org/",
+"producer": "보니야 가문 (Bonilla) — 파블로 보니야",
+"founded": "2003년 마이크로밀 설립",
+"elevation": "1,650–2,100 m",
+"story": "타라수의 산 마르코스에 있는 코스타리카에서 가장 오래된 마이크로밀 중 한 곳입니다. 2003년 엑토르 보니야와 아들들이 세웠고, 자기 농장(라 라데라·라 로마·베야 비스타 등) 커피와 이웃 농가 체리를 함께 가공해 롯마다 이름을 붙여 팔기 시작한 초기 주자입니다.",
+"awards": [
+"Cup of Excellence 코스타리카 2009 1위(카투아이 내추럴)",
+"Cup of Excellence 코스타리카 2020 1위(게이샤 허니 90.27)",
+"CoE 경매 누적 35롯 이상 출품"
+],
+"refs": [
+{
+"t": "마이크로밀 소개",
+"u": "https://ozonecoffee.co.uk/pages/don-mayo-the-bonilla-family"
+},
+{
+"t": "농장 공식",
+"u": "https://www.cafedonmayocr.com/nosotros.php"
+}
+],
 "beanCount": 11
 },
 {
@@ -634,6 +720,23 @@
 "precision": "village",
 "evidence": "베레다 노르만디아, 브루셀라스, Pitalito, Huila · OSM Normandía",
 "source": "https://www.lanacion.com.co/el-cafe-huilense-hecho-para-los-campeones/",
+"producer": "라쏘 가문 — 호세 우리베 라쏘와 아들 네스토르·아드리안·조나단",
+"elevation": "1,550–1,900 m",
+"story": "우일라 피탈리토의 브루셀라스, 베레다 노르만디아에 있습니다. 아버지 호세 우리베 라쏘가 세운 14~16헥타르 농장을 아들들이 맡으면서 시드라·옴블리곤·핑크 버본·게이샤 같은 품종과 긴 발효로 유명해졌습니다. 가까운 베레다에는 가족의 새 농장 엘 트리운포도 있습니다.",
+"awards": [
+"2024 세계 바리스타 챔피언십 우승 커피(미카엘 야신)",
+"최근 세계 바리스타 대회 3회 연속 포디움"
+],
+"refs": [
+{
+"t": "지역지 보도",
+"u": "https://www.lanacion.com.co/el-cafe-huilense-hecho-para-los-campeones/"
+},
+{
+"t": "농장 프로필",
+"u": "https://roasttocup.coffee/dictionary/el-diviso-nestor-lasso-estate-profile/"
+}
+],
 "beanCount": 10
 },
 {
@@ -647,6 +750,19 @@
 "precision": "village",
 "evidence": "Pichindé, Cali, Valle del Cauca · OSM Pichindé",
 "source": "https://www.inmaculadacoffeefarms.com/our-coffees",
+"producer": "올긴 가문 (Holguín family)",
+"founded": "2010년",
+"elevation": "1,750–2,000 m",
+"story": "칼리의 피친데 지역, 파라요네스 데 칼리 국립공원 기슭에 있습니다. 2010년 올긴 가문이 5헥타르로 시작해 지금은 엘 하르딘·몬세라트·라스 누베스·라 글로리아 등 60헥타르 규모로 키웠고, 게이샤·수단 루메·라우리나·에우헤니오이데스 같은 희귀 품종을 재배합니다.",
+"awards": [
+"2015 세계 바리스타 챔피언십 우승 커피(사사 세스틱, 수단 루메)"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://www.inmaculadacoffeefarms.com/about-us"
+}
+],
 "beanCount": 10
 },
 {
@@ -654,12 +770,30 @@
 "kind": "farm",
 "country": "파나마",
 "name": "라스 브루하스",
-"nameEn": "Las Brujas",
-"lat": 8.719037,
-"lon": -82.479515,
-"precision": "farm",
-"evidence": "OSM Las Brujas, Potrerillos, Dolega, Chiriquí",
-"source": "https://www.openstreetmap.org/",
+"nameEn": "Kotowa Las Brujas",
+"lat": 8.793215,
+"lon": -82.475156,
+"precision": "village",
+"evidence": "El Salto, Boquete(Kotowa 라스 브루하스 구획) · OSM El Salto",
+"source": "https://scap-panama.com/lamastus-coffees/",
+"producer": "코토와 농장 (Kotowa) — 리카르도 코이네르 · 빅토리아 코이네르",
+"founded": "코토와 1913년(라스 브루하스는 엘 살토 구획)",
+"elevation": "약 1,800 m",
+"story": "보케테 엘 살토의 구름숲에 둘러싸인 코토와 농장의 구획입니다. 코토와는 1913년 캐나다 이민자 알렉산더 던컨 매킨타이어가 세웠고 4대째 리카르도·빅토리아 코이네르 부녀가 9개 농장을 운영합니다. 라스 브루하스는 그중에서도 게이샤가 잘 나는 고지 구획으로 꼽힙니다.",
+"awards": [
+"Best of Panama 2025 게이샤 내추럴 17위(92.25, 라스 브루하스 롯)",
+"Best of Panama 2016 베스트 프로듀서 파나마 컵"
+],
+"refs": [
+{
+"t": "SCAP·코토와",
+"u": "https://www.coffeesketcher.com/origins/panama/caf%C3%A9-kotowa"
+},
+{
+"t": "라스 브루하스 롯",
+"u": "https://archerscoffee.com/products/panama-kotowa-coffee-las-brujas-lot-6934"
+}
+],
 "beanCount": 10
 },
 {
@@ -685,6 +819,20 @@
 "precision": "region",
 "evidence": "산살바도르 화산 기슭 · OSM Volcán de San Salvador",
 "source": "https://www.cafe1388.com/es/about-us/",
+"producer": "기롤라 가문 (Guirola) — 카페 13 88",
+"founded": "1888년",
+"elevation": "1,300–1,700 m",
+"story": "산살바도르 화산 자락의 농장으로, 기롤라 가문이 1888년부터 5대째 운영합니다. 몬테비디오와 산 아구스틴 두 농장을 합쳐 380에이커 규모이며, 브랜드 이름 '카페 13 88'은 엘살바도르의 위도·경도를 딴 것입니다.",
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://www.cafe1388.com/es/about-us/"
+},
+{
+"t": "수입사 소개",
+"u": "https://www.covoyacoffee.com/p609650-1-elsalvador-finca-montevideo.html"
+}
+],
 "beanCount": 9
 },
 {
@@ -698,6 +846,25 @@
 "precision": "farm",
 "evidence": "OSM Elida Estate, Los Naranjos, Boquete",
 "source": "https://elidaestate.com/",
+"producer": "라마스투스 가문 (Lamastus) — 윌포드 라마스투스",
+"founded": "1918년",
+"elevation": "1,700–2,500 m",
+"story": "보케테의 알토 키엘, 바루 화산 자락에 있습니다. 켄터키 출신 로버트 라마스투스가 1918년 세웠고 4대째 이어지고 있으며, 농장 일부가 바루 화산 국립공원 안에 들어 있습니다. 파나마에서 가장 높은 곳에 커피를 심는 농장으로 알려져 있습니다.",
+"awards": [
+"Best of Panama 2018 게이샤 워시드·내추럴 동시 1위(워시드 94.66, 대회 기록)",
+"Best of Panama 2016 게이샤 워시드 1위(94.15)",
+"Good Food Awards 수상"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://lamastusfamilyestates.com/blogs/specialty-coffee/best-of-panama-2018"
+},
+{
+"t": "SCAP 프로필",
+"u": "https://scap-panama.com/lamastus-coffees/"
+}
+],
 "beanCount": 9
 },
 {
@@ -723,6 +890,23 @@
 "precision": "village",
 "evidence": "산타 로사 데 리마, Santa Rosa(엘 카리살) · OSM Santa Rosa de Lima",
 "source": "https://fincalosconejos.com/location/",
+"producer": "카렌 보니야 (Karen Bonilla) · 농장 팀",
+"founded": "2014년 새 경영진",
+"elevation": "1,500–1,625 m",
+"story": "산타 로사 데 리마의 엘 카리살 마을, 옛 산타 로사 도로 30.4km 지점에 있습니다. 2014년 새 경영진이 들어와 게이샤·옐로 버본·파카마라를 심고 무산소·카보닉 매서레이션 가공을 시도하면서 안아카페 지역 대회 상위에 꾸준히 올랐습니다.",
+"awards": [
+"안아카페 지역 대회(IV지역) 7년 연속 톱10"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://fincalosconejos.com/location/"
+},
+{
+"t": "생산자 소개",
+"u": "https://www.groundsforempowerment.com/karen-bonilla"
+}
+],
 "beanCount": 8
 },
 {
@@ -736,6 +920,25 @@
 "precision": "farm",
 "evidence": "OSM El Injerto, Huehuetenango",
 "source": "https://www.openstreetmap.org/",
+"producer": "아기에레 가문 (Aguirre) — 아르투로 아기에레",
+"founded": "1874년 (커피는 1900년부터)",
+"elevation": "1,500–1,920 m",
+"story": "우에우에테낭고 라 리베르타드, 쿠추마타네스 산맥 가까운 고지입니다. 헤수스 아기에레 파나마가 1874년 농장을 사서 사탕수수·옥수수를 심다 1900년 커피로 바꿨고, 지금은 3·4대째가 운영합니다. 화산재가 아닌 광물질 토양과 그늘 재배가 특징입니다.",
+"awards": [
+"Cup of Excellence 과테말라 1위 8회(2006·2008·2009·2010·2012·2013·2015 등)",
+"CoE 2위 2014·2017, 3위 2011",
+"Cup of Excellence 과테말라 2021 1위(게이샤 90.51)"
+],
+"refs": [
+{
+"t": "농장 연혁",
+"u": "https://fincaelinjerto.com/the-farm/"
+},
+{
+"t": "수상 내역",
+"u": "https://fincaelinjerto.com/awards/"
+}
+],
 "beanCount": 8
 },
 {
@@ -809,6 +1012,20 @@
 "precision": "village",
 "evidence": "Lajas 마을, Sabanilla de Alajuela(포아스 화산 기슭) · OSM Lajas",
 "source": "https://www.sustainableharvest.com/las-lajas",
+"producer": "차콘 가문 (Chacón) — 프란시스카 쿠비요 · 오스카르 차콘",
+"founded": "차콘 가문 80여 년 (현 가공장 터는 1988년 상속)",
+"elevation": "1,300–1,500 m",
+"story": "포아스 화산 기슭 사바니야 데 알라후엘라에 있습니다. 3대째 이어온 차콘 가문이 허니 가공을 일찍부터 밀어붙여 '블랙 다이아몬드' 같은 롯으로 알려졌고, 2009년 지진으로 물과 전기가 끊긴 뒤 자연 가공으로 넓혀갔습니다.",
+"refs": [
+{
+"t": "농장 소개",
+"u": "https://buenavida.coffee/es/pages/las-lajas"
+},
+{
+"t": "수입사 소개",
+"u": "https://www.sustainableharvest.com/las-lajas"
+}
+],
 "beanCount": 8
 },
 {
@@ -942,6 +1159,23 @@
 "precision": "farm",
 "evidence": "농장 공개 GPS N14°34.128' W90°56.83'",
 "source": "https://www.santafelisa.com/",
+"producer": "메네세스 남매 (아나베야 · 안토니오)",
+"founded": "1904년",
+"elevation": "1,550–1,900 m",
+"story": "치말테낭고 아카테낭고의 고지 농장으로, 1904년 트리니다드 크루스가 세웠고 지금은 4대째 메네세스 남매가 운영합니다. 30가지가 넘는 품종을 따로 재배·가공해 '나노롯' 단위로 내놓는 것으로 알려져 있습니다.",
+"awards": [
+"Cup of Excellence 과테말라 2017 1위(레드 파카마라 내추럴)"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://santafelisacoffee.com/"
+},
+{
+"t": "SCA 소개",
+"u": "https://sca.coffee/sca-news/community/instagram-live-crg-virtual-origin-trip-to-guatemala-fm355"
+}
+],
 "beanCount": 5
 },
 {
@@ -955,6 +1189,24 @@
 "precision": "village",
 "evidence": "Palencia, Guatemala Department · OSM Palencia",
 "source": "https://elsocorrocoffee.com/",
+"producer": "데 라 세르다 가문 (de la Cerda) — 후안 디에고 데 라 세르다",
+"founded": "1966년 매입 (커피 1980년, 가공장 1984년)",
+"elevation": "1,550–1,860 m",
+"story": "과테말라 주 팔렌시아의 산지에 있는 700헥타르 농장으로, 그중 350헥타르가 지역 최대 사유 산림 보호구역입니다. 1966년 마리오 데 라 세르다가 숲과 목장뿐이던 땅을 사서 1980년 커피를 심었고, 지금은 아들 후안 디에고가 12가지가 넘는 품종을 재배합니다.",
+"awards": [
+"Cup of Excellence 과테말라 1위 2007·2011·2020·2023",
+"CoE 톱5 10회"
+],
+"refs": [
+{
+"t": "농장 공식",
+"u": "https://elsocorrocoffee.com/"
+},
+{
+"t": "연혁",
+"u": "https://dlccoffee.com/historia/"
+}
+],
 "beanCount": 5
 },
 {
@@ -1040,6 +1292,24 @@
 "precision": "village",
 "evidence": "엘 피나베테, Mozonte, Nueva Segovia · OSM Mozonte",
 "source": "https://www.thegoodsourcing.com/finca-libre-fr",
+"producer": "필 훈 수 (Pil Hoon Sue, 한국)",
+"founded": "2015년 인수 (구 세로 델 시엘로)",
+"elevation": "1,400–1,700 m",
+"story": "누에바 세고비아 모손테의 엘 피나베테, 로스 아라도스 일대에 있습니다. 한국에서 커피를 볶던 필 훈 수가 2015년 이 농장을 사 '자유'라는 뜻의 핀카 리브레로 이름을 바꾸고, 게이샤·SL28·SL34·핑크 버본을 구획별로 나눠 재배합니다.",
+"awards": [
+"Cup of Excellence 니카라과 2024 3위(89.8)",
+"CoE 니카라과 2026 14위(87.56)"
+],
+"refs": [
+{
+"t": "농장 소개",
+"u": "https://www.thegoodsourcing.com/finca-libre-fr"
+},
+{
+"t": "CoE 2026 결과",
+"u": "https://allianceforcoffeeexcellence.org/nicaragua-2026/"
+}
+],
 "beanCount": 4
 },
 {
@@ -1113,6 +1383,14 @@
 "precision": "village",
 "evidence": "베레다 로스 아라도스, Piendamó, Cauca · OSM Los Arados",
 "source": "https://www.pxlroasters.com/en/process-choc-thermique.html",
+"producer": "빌톤 베니테스 (Wilton Benítez)",
+"story": "빌톤 베니테스가 운영하는 농장으로, 스스로 '핀카 엘 파라이소-92'라 부릅니다. 디에고 베르무데스의 엘 파라이소와 이름이 비슷하지만 다른 농장이며, 두 곳 모두 피엔다모의 베레다 로스 아라도스에 있습니다.",
+"refs": [
+{
+"t": "두 농장 구분",
+"u": "https://www.pxlroasters.com/en/process-choc-thermique.html"
+}
+],
 "beanCount": 4
 },
 {
@@ -1138,6 +1416,26 @@
 "precision": "village",
 "evidence": "Dipilto, Nueva Segovia · OSM Dipilto",
 "source": "https://auction.allianceforcoffeeexcellence.org/en/lots/el-cambalache",
+"producer": "아브네르 사무엘 사발라 (Abner Samuel Zavala)",
+"founded": "약 3헥타르 소농 (2010년대 인수)",
+"elevation": "약 1,500 m",
+"story": "누에바 세고비아 디필토의 작은 농장입니다. 3대째 커피를 재배하는 농학자 사발라가 마라카투라·게이샤·시드라를 재배하며 긴 무산소 발효와 아프리칸 베드 건조로 승부합니다. 조합·이웃 농가를 돕는 일도 함께 합니다.",
+"awards": [
+"Cup of Excellence 니카라과 2026 워시드 1위(91.44)",
+"CoE 니카라과 2021 2위(90.75, 마라카투라 허니)",
+"CoE 니카라과 2018 4위(90.23)",
+"CoE 니카라과 2024 5위(89.45)"
+],
+"refs": [
+{
+"t": "CoE 농장 정보",
+"u": "https://auction.allianceforcoffeeexcellence.org/en/lots/el-cambalache"
+},
+{
+"t": "기록 정리",
+"u": "https://www.coffeesketcher.com/origins/finca-el-cambalache"
+}
+],
 "beanCount": 3
 },
 {
@@ -1247,6 +1545,20 @@
 "precision": "village",
 "evidence": "Pollibetta, Virajpet, Kodagu, Karnataka · OSM Pollibetta",
 "source": "https://coffeeboard.gov.in/Exporter/DataBaseBook2023Final.pdf",
+"producer": "키리트 우타빠 가문 (Kirit Uthappa)",
+"founded": "1945년부터 가족 경영",
+"elevation": "약 1,000 m",
+"story": "카르나타카 쿠르그 남부 폴리베타의 로부스타 농장입니다. '인도에 자유를'이라는 이름처럼 독립 무렵부터 가문이 운영해 왔고, 관개·영양·체리 선별을 세밀하게 관리해 롯 품질을 일정하게 유지합니다.",
+"refs": [
+{
+"t": "농장·거래 소개",
+"u": "https://every.coffee/roaster/coffee-libre-coffeelibre/india-azad-hind-robusta-2026"
+},
+{
+"t": "인도 커피위원회 수출업체 명부",
+"u": "https://coffeeboard.gov.in/Exporter/DataBaseBook2023Final.pdf"
+}
+],
 "beanCount": 3
 },
 {
@@ -1584,6 +1896,20 @@
 "precision": "village",
 "evidence": "Carrizal, Alajuela(포아스·바르바 화산 기슭) · OSM Carrizal",
 "source": "https://www.cafeimports.com/europe/blog/2019/08/28/cafe-imports-europe-and-don-sabino-micromill-collaborate-on-exclusive-traceable-and-transparent-berlin-batch-for-berlin-coffee-festival/",
+"producer": "바르가스 가문 (Vargas) — 스티븐 바르가스",
+"founded": "1919년 첫 수출 (6대째)",
+"elevation": "1,300–1,820 m",
+"story": "알라후엘라 카리살, 포아스·바르바 화산 기슭의 133헥타르 농장입니다. 바르가스 가문이 1919년부터 커피를 재배·수출해 왔고, 2010년부터 직접 가공하는 마이크로밀로 바꾸면서 내추럴·무산소 롯으로 이름을 알렸습니다.",
+"refs": [
+{
+"t": "농장 소개",
+"u": "https://www.plantingcostarica.com/don-sabino"
+},
+{
+"t": "Cafe Imports",
+"u": "https://www.cafeimports.com/europe/blog/2019/08/28/cafe-imports-europe-and-don-sabino-micromill-collaborate-on-exclusive-traceable-and-transparent-berlin-batch-for-berlin-coffee-festival/"
+}
+],
 "beanCount": 2
 },
 {
@@ -1659,6 +1985,24 @@
 "precision": "farm",
 "evidence": "OSM Finca Hartmann, Santa Clara, Renacimiento",
 "source": "https://www.openstreetmap.org/",
+"producer": "하트만 가문 (Hartmann)",
+"founded": "1940년",
+"elevation": "1,300–2,000 m",
+"story": "코스타리카 국경의 산타 클라라, 라 아미스타드 국제공원에 맞닿은 농장입니다. 체코(모라비아)에서 온 알로이스 하트만이 1912년 파나마에 정착했고, 아들 라티보르가 1940년 농장을 세웠습니다. 원시림 그늘 아래 커피를 기르며 300여 종의 새가 기록된 곳으로, 파나마에서 마라고지페를 처음 재배·수출했습니다.",
+"awards": [
+"가족 농장 과루모 — Best of Panama 2022 게이샤 내추럴 1위(96.5)",
+"Best of Panama 2022 버라이어티 부문 1위"
+],
+"refs": [
+{
+"t": "가족·농장 소개",
+"u": "https://www.proudmaryacademy.com/en/articles/6843170-producer-hartmann-family-santa-clara-panama"
+},
+{
+"t": "농장 소개",
+"u": "https://www.standoutcoffee.com/pages/finca-hartmann"
+}
+],
 "beanCount": 2
 },
 {
@@ -1696,6 +2040,23 @@
 "precision": "village",
 "evidence": "OSM Santa Clara La Laguna, Sololá",
 "source": "https://www.openstreetmap.org/",
+"producer": "ASUVIM 협동조합 (마야 키체 93명 이상)",
+"founded": "1999년 결성 (2003년 법인화)",
+"elevation": "1,650–2,050 m",
+"story": "솔롤라 산타 클라라 라구나의 파키프 마을을 중심으로 한 소농 협동조합입니다. 아티틀란 호수를 둘러싼 화산 자락에서 유기농으로 재배하고, 마을 공동 가공장에서 체리를 모아 가공합니다. 커피로 호수를 지키는 것이 조합의 목표입니다.",
+"awards": [
+"Cup of Excellence 과테말라 2009 6위(89.05)"
+],
+"refs": [
+{
+"t": "조합 소개",
+"u": "https://counterculturecoffee.com/products/asuvim"
+},
+{
+"t": "CoE 2009 결과",
+"u": "https://cupofexcellence.org/guatemala-2009/"
+}
+],
 "beanCount": 1
 },
 {
@@ -1848,12 +2209,25 @@
 "kind": "farm",
 "country": "브라질",
 "name": "파젠다 카르모",
-"nameEn": "Fazenda Carmo",
-"lat": -22.0932,
-"lon": -44.3317,
+"nameEn": "Fazenda Carmo Estate",
+"lat": -22.025182,
+"lon": -45.510693,
 "precision": "farm",
-"evidence": "OSM Fazenda Carmo da Cruz, Minas Gerais",
-"source": "https://www.openstreetmap.org/",
+"evidence": "OSM Fazenda Nossa Senhora do Carmo, Heliodora, Minas Gerais",
+"source": "https://flor-do-brasil.com/blogs/our-farms/fazenda-carmo-estate",
+"producer": "준케이라 가문 (Junqueira) — 툴리오 · 루 준케이라",
+"founded": "가문 150여 년",
+"story": "미나스 제라이스 헬리오도라의 농장으로, 준케이라 가문이 150년 넘게 커피를 재배해 왔습니다. 툴리오 준케이라가 30년째 특수커피 가공을 연구하며 라브라스 연방대학 연구진과 함께 그늘 발효·저온 건조를 다듬어 왔고, 농장 안 실험실에서 롯마다 품질을 확인합니다.",
+"refs": [
+{
+"t": "농장 소개",
+"u": "https://flor-do-brasil.com/blogs/our-farms/fazenda-carmo-estate"
+},
+{
+"t": "BSCA 등록",
+"u": "https://www.bsca.com.br/area-de-membros/fazenda-carmo-estate-coffee-tulio-henrique-renno-junqueira/"
+}
+],
 "beanCount": 1
 },
 {
@@ -2143,6 +2517,21 @@
 "precision": "village",
 "evidence": "산타 로사, 레온 코르테스, Tarrazú · OSM Santa Rosa",
 "source": "https://coffeelibre.kr/product/new-crop-%EC%83%9D%EB%91%90-%EC%BD%94%EC%8A%A4%ED%83%80%EB%A6%AC%EC%B9%B4-%EC%82%B0%ED%83%80-%EB%A1%9C%EC%82%AC-1900-%ED%95%80%EC%B9%B4-%EB%A7%88%EC%B4%88-2026/7881/",
+"producer": "에프라인 · 엘베르트 나랑호 (Efraín & Helbert Naranjo)",
+"founded": "2004년 (산타 로사 1900 마이크로밀 운영)",
+"elevation": "1,900 m",
+"story": "타라수 산타 로사 데 레온 코르테스의 고지 농장입니다. 에프라인 나랑호가 2004년 방치됐던 땅을 사 지금의 농장을 만들었고, 아들 엘베르트와 함께 '산타 로사 1900' 마이크로밀에서 직접 가공합니다.",
+"awards": [
+"Cup of Excellence 코스타리카 2013 11위",
+"Cup of Excellence 코스타리카 2014 14위",
+"Cup of Excellence 코스타리카 2015 9위"
+],
+"refs": [
+{
+"t": "농장 소개",
+"u": "https://coffeelibre.kr/product/new-crop-%EC%83%9D%EB%91%90-%EC%BD%94%EC%8A%A4%ED%83%80%EB%A6%AC%EC%B9%B4-%EC%82%B0%ED%83%80-%EB%A1%9C%EC%82%AC-1900-%ED%95%80%EC%B9%B4-%EB%A7%88%EC%B4%88-2026/7881/"
+}
+],
 "beanCount": 1
 },
 {
@@ -2240,6 +2629,16 @@
 "precision": "farm",
 "evidence": "카하마르카 산이그나시오 엘 디아만테 마을(이전 조사)",
 "source": "",
+"producer": "엘 디아만테 마을 소농들 (산 호세 데 루르데스)",
+"founded": "1970년대 농지개혁으로 형성된 마을",
+"elevation": "1,600–2,000 m",
+"story": "카하마르카 산 이그나시오 주 산 호세 데 루르데스의 마을입니다. 1970년대 농지개혁 때 소농들이 모여 세운 곳으로, 지금은 하엔 인근 특수커피 산지로 자랐습니다. 마을 농가들이 각자 재배해 공동으로 선별·가공합니다.",
+"refs": [
+{
+"t": "마을·생산자 소개",
+"u": "https://sacred-grounds.coffee/blogs/all-about-the-coffee/peru"
+}
+],
 "beanCount": 1
 }
 ],
