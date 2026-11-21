@@ -17,15 +17,15 @@
 "beans": 2846,
 "listings": 3863,
 "countries": 33,
-"places": 164,
-"regions": 124,
-"farms": 9
+"places": 182,
+"regions": 123,
+"farms": 28
 },
 "precision": {
-"farm": 25,
-"region": 683,
-"village": 202,
-"country": 1936
+"farm": 88,
+"region": 703,
+"village": 276,
+"country": 1779
 },
 "coordSource": "Photon/OpenStreetMap (ODbL), 일부 주요 산지는 관리 중심지 좌표로 보정"
 },
@@ -40,7 +40,7 @@
 "lon": -72.9088133,
 "precision": "country",
 "evidence": "Colombia, Colombia",
-"beanCount": 389
+"beanCount": 337
 },
 {
 "id": "C|브라질",
@@ -55,18 +55,6 @@
 "beanCount": 184
 },
 {
-"id": "C|코스타리카",
-"kind": "country",
-"country": "코스타리카",
-"name": "코스타리카",
-"nameEn": "Costa Rica",
-"lat": 10.2735633,
-"lon": -84.0739102,
-"precision": "country",
-"evidence": "Costa Rica, Costa Rica",
-"beanCount": 172
-},
-{
 "id": "C|과테말라",
 "kind": "country",
 "country": "과테말라",
@@ -76,7 +64,19 @@
 "lon": -90.345759,
 "precision": "country",
 "evidence": "Guatemala, Guatemala",
-"beanCount": 168
+"beanCount": 152
+},
+{
+"id": "C|코스타리카",
+"kind": "country",
+"country": "코스타리카",
+"name": "코스타리카",
+"nameEn": "Costa Rica",
+"lat": 10.2735633,
+"lon": -84.0739102,
+"precision": "country",
+"evidence": "Costa Rica, Costa Rica",
+"beanCount": 150
 },
 {
 "id": "C|에티오피아",
@@ -101,18 +101,6 @@
 "precision": "country",
 "evidence": "Kenya, Kenya",
 "beanCount": 142
-},
-{
-"id": "C|파나마",
-"kind": "country",
-"country": "파나마",
-"name": "파나마",
-"nameEn": "Panama",
-"lat": 8.559559,
-"lon": -81.1308434,
-"precision": "country",
-"evidence": "Panama, Panama",
-"beanCount": 137
 },
 {
 "id": "R|에티오피아|예가체프",
@@ -151,6 +139,18 @@
 "beanCount": 101
 },
 {
+"id": "C|파나마",
+"kind": "country",
+"country": "파나마",
+"name": "파나마",
+"nameEn": "Panama",
+"lat": 8.559559,
+"lon": -81.1308434,
+"precision": "country",
+"evidence": "Panama, Panama",
+"beanCount": 89
+},
+{
 "id": "C|베트남",
 "kind": "country",
 "country": "베트남",
@@ -175,18 +175,6 @@
 "beanCount": 56
 },
 {
-"id": "C|엘살바도르",
-"kind": "country",
-"country": "엘살바도르",
-"name": "엘살바도르",
-"nameEn": "El Salvador",
-"lat": 13.8000382,
-"lon": -88.9140683,
-"precision": "country",
-"evidence": "El Salvador, El Salvador",
-"beanCount": 44
-},
-{
 "id": "R|콜롬비아|후일라",
 "kind": "region",
 "country": "콜롬비아",
@@ -197,18 +185,6 @@
 "precision": "region",
 "evidence": "Huila, Colombia",
 "beanCount": 43
-},
-{
-"id": "C|니카라과",
-"kind": "country",
-"country": "니카라과",
-"name": "니카라과",
-"nameEn": "Nicaragua",
-"lat": 12.3506436,
-"lon": -85.7841006,
-"precision": "country",
-"evidence": "Nicaragua, Nicaragua",
-"beanCount": 42
 },
 {
 "id": "C|파푸아뉴기니",
@@ -233,6 +209,30 @@
 "precision": "country",
 "evidence": "Cameroon, Cameroon",
 "beanCount": 39
+},
+{
+"id": "C|니카라과",
+"kind": "country",
+"country": "니카라과",
+"name": "니카라과",
+"nameEn": "Nicaragua",
+"lat": 12.3506436,
+"lon": -85.7841006,
+"precision": "country",
+"evidence": "Nicaragua, Nicaragua",
+"beanCount": 35
+},
+{
+"id": "C|엘살바도르",
+"kind": "country",
+"country": "엘살바도르",
+"name": "엘살바도르",
+"nameEn": "El Salvador",
+"lat": 13.8000382,
+"lon": -88.9140683,
+"precision": "country",
+"evidence": "El Salvador, El Salvador",
+"beanCount": 35
 },
 {
 "id": "C|르완다",
@@ -271,18 +271,6 @@
 "beanCount": 30
 },
 {
-"id": "C|인도",
-"kind": "country",
-"country": "인도",
-"name": "인도",
-"nameEn": "India",
-"lat": 22.3511148,
-"lon": 78.6677428,
-"precision": "country",
-"evidence": "India, India",
-"beanCount": 29
-},
-{
 "id": "R|에티오피아|구지",
 "kind": "region",
 "country": "에티오피아",
@@ -307,6 +295,18 @@
 "beanCount": 27
 },
 {
+"id": "C|인도",
+"kind": "country",
+"country": "인도",
+"name": "인도",
+"nameEn": "India",
+"lat": 22.3511148,
+"lon": 78.6677428,
+"precision": "country",
+"evidence": "India, India",
+"beanCount": 26
+},
+{
 "id": "R|콜롬비아|퀸디오",
 "kind": "region",
 "country": "콜롬비아",
@@ -328,6 +328,19 @@
 "lon": 100.83273,
 "precision": "country",
 "evidence": "Thailand, Thailand",
+"beanCount": 22
+},
+{
+"id": "F|파나마|에스메랄다",
+"kind": "farm",
+"country": "파나마",
+"name": "에스메랄다",
+"nameEn": "Hacienda La Esmeralda",
+"lat": 8.73525,
+"lon": -82.459668,
+"precision": "farm",
+"evidence": "OSM Hacienda La Esmeralda, Palmira, Boquete",
+"source": "https://haciendaesmeralda.com/jaramillo-farm/",
 "beanCount": 22
 },
 {
@@ -487,6 +500,19 @@
 "beanCount": 15
 },
 {
+"id": "F|콜롬비아|엘 파라이소",
+"kind": "farm",
+"country": "콜롬비아",
+"name": "엘 파라이소",
+"nameEn": "Finca El Paraíso",
+"lat": 2.702647,
+"lon": -76.526886,
+"precision": "village",
+"evidence": "베레다 로스 아라도스, Piendamó–Tunía · OSM Los Arados · 농장 주소 Km29 Popayán–Cali",
+"source": "https://bibliotecadigital.univalle.edu.co/handle/10893/19867",
+"beanCount": 15
+},
+{
 "id": "R|인도네시아|북수마트라",
 "kind": "region",
 "country": "인도네시아",
@@ -509,6 +535,32 @@
 "precision": "region",
 "evidence": "Nariño, Colombia",
 "beanCount": 14
+},
+{
+"id": "F|파나마|레리다",
+"kind": "farm",
+"country": "파나마",
+"name": "레리다",
+"nameEn": "Finca Lérida",
+"lat": 8.813005,
+"lon": -82.483136,
+"precision": "farm",
+"evidence": "OSM Finca Lerida, Los Naranjos, Boquete",
+"source": "https://fincalerida.com/",
+"beanCount": 14
+},
+{
+"id": "F|콜롬비아|엘 트리운포",
+"kind": "farm",
+"country": "콜롬비아",
+"name": "엘 트리운포",
+"nameEn": "Finca El Triunfo",
+"lat": 1.850613,
+"lon": -76.06513,
+"precision": "region",
+"evidence": "Pitalito, Huila(라쏘 가문 농장) · OSM Pitalito",
+"source": "https://www.cafenogales.co.kr/product/ETR1954",
+"beanCount": 13
 },
 {
 "id": "R|에티오피아|아바야",
@@ -547,6 +599,19 @@
 "beanCount": 11
 },
 {
+"id": "F|코스타리카|돈 마요",
+"kind": "farm",
+"country": "코스타리카",
+"name": "돈 마요",
+"nameEn": "Don Mayo",
+"lat": 9.686483,
+"lon": -84.001796,
+"precision": "farm",
+"evidence": "OSM Beneficio Don Mayo, San Marcos, Tarrazú",
+"source": "https://www.openstreetmap.org/",
+"beanCount": 11
+},
+{
 "id": "R|에티오피아|게뎁",
 "kind": "region",
 "country": "에티오피아",
@@ -556,6 +621,45 @@
 "lon": 38.25,
 "precision": "village",
 "evidence": "Gedeb, Gedeo, South Ethiopia Regional State, Ethiopia",
+"beanCount": 10
+},
+{
+"id": "F|콜롬비아|엘 디비소",
+"kind": "farm",
+"country": "콜롬비아",
+"name": "엘 디비소",
+"nameEn": "Finca El Diviso",
+"lat": 1.801678,
+"lon": -76.19799,
+"precision": "village",
+"evidence": "베레다 노르만디아, 브루셀라스, Pitalito, Huila · OSM Normandía",
+"source": "https://www.lanacion.com.co/el-cafe-huilense-hecho-para-los-campeones/",
+"beanCount": 10
+},
+{
+"id": "F|콜롬비아|인마쿨라다",
+"kind": "farm",
+"country": "콜롬비아",
+"name": "인마쿨라다",
+"nameEn": "Inmaculada Coffee Farms",
+"lat": 3.438202,
+"lon": -76.614833,
+"precision": "village",
+"evidence": "Pichindé, Cali, Valle del Cauca · OSM Pichindé",
+"source": "https://www.inmaculadacoffeefarms.com/our-coffees",
+"beanCount": 10
+},
+{
+"id": "F|파나마|라스 브루하스",
+"kind": "farm",
+"country": "파나마",
+"name": "라스 브루하스",
+"nameEn": "Las Brujas",
+"lat": 8.719037,
+"lon": -82.479515,
+"precision": "farm",
+"evidence": "OSM Las Brujas, Potrerillos, Dolega, Chiriquí",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 10
 },
 {
@@ -571,6 +675,32 @@
 "beanCount": 9
 },
 {
+"id": "F|엘살바도르|핀카 몬테비디오",
+"kind": "farm",
+"country": "엘살바도르",
+"name": "핀카 몬테비디오",
+"nameEn": "Finca Montevideo",
+"lat": 13.731222,
+"lon": -89.289788,
+"precision": "region",
+"evidence": "산살바도르 화산 기슭 · OSM Volcán de San Salvador",
+"source": "https://www.cafe1388.com/es/about-us/",
+"beanCount": 9
+},
+{
+"id": "F|파나마|엘리다",
+"kind": "farm",
+"country": "파나마",
+"name": "엘리다",
+"nameEn": "Elida Estate",
+"lat": 8.810495,
+"lon": -82.482217,
+"precision": "farm",
+"evidence": "OSM Elida Estate, Los Naranjos, Boquete",
+"source": "https://elidaestate.com/",
+"beanCount": 9
+},
+{
 "id": "R|하와이|코나",
 "kind": "region",
 "country": "하와이",
@@ -581,6 +711,32 @@
 "precision": "region",
 "evidence": "curated",
 "beanCount": 9
+},
+{
+"id": "F|과테말라|로스 꼬네호스",
+"kind": "farm",
+"country": "과테말라",
+"name": "로스 꼬네호스",
+"nameEn": "Finca Los Conejos",
+"lat": 14.390519,
+"lon": -90.295822,
+"precision": "village",
+"evidence": "산타 로사 데 리마, Santa Rosa(엘 카리살) · OSM Santa Rosa de Lima",
+"source": "https://fincalosconejos.com/location/",
+"beanCount": 8
+},
+{
+"id": "F|과테말라|엘 인헤르또",
+"kind": "farm",
+"country": "과테말라",
+"name": "엘 인헤르또",
+"nameEn": "El Injerto",
+"lat": 15.4909,
+"lon": -91.7991,
+"precision": "farm",
+"evidence": "OSM El Injerto, Huehuetenango",
+"source": "https://www.openstreetmap.org/",
+"beanCount": 8
 },
 {
 "id": "R|베트남|다랏",
@@ -643,6 +799,19 @@
 "beanCount": 8
 },
 {
+"id": "F|코스타리카|라스 라하스",
+"kind": "farm",
+"country": "코스타리카",
+"name": "라스 라하스",
+"nameEn": "Hacienda Las Lajas",
+"lat": 10.074331,
+"lon": -84.224034,
+"precision": "village",
+"evidence": "Lajas 마을, Sabanilla de Alajuela(포아스 화산 기슭) · OSM Lajas",
+"source": "https://www.sustainableharvest.com/las-lajas",
+"beanCount": 8
+},
+{
 "id": "R|페루|카하마르카",
 "kind": "region",
 "country": "페루",
@@ -701,18 +870,6 @@
 "precision": "region",
 "evidence": "Aceh, Indonesia",
 "beanCount": 7
-},
-{
-"id": "F|과테말라|엘 인헤르또",
-"kind": "farm",
-"country": "과테말라",
-"name": "엘 인헤르또",
-"nameEn": "El Injerto",
-"lat": 15.4909,
-"lon": -91.7991,
-"precision": "farm",
-"evidence": "OSM El Injerto, Huehuetenango",
-"beanCount": 6
 },
 {
 "id": "C|라오스",
@@ -784,6 +941,20 @@
 "lon": -90.9472,
 "precision": "farm",
 "evidence": "농장 공개 GPS N14°34.128' W90°56.83'",
+"source": "https://www.santafelisa.com/",
+"beanCount": 5
+},
+{
+"id": "F|과테말라|엘 소코로",
+"kind": "farm",
+"country": "과테말라",
+"name": "엘 소코로",
+"nameEn": "Finca El Socorro",
+"lat": 14.666559,
+"lon": -90.361439,
+"precision": "village",
+"evidence": "Palencia, Guatemala Department · OSM Palencia",
+"source": "https://elsocorrocoffee.com/",
 "beanCount": 5
 },
 {
@@ -859,16 +1030,17 @@
 "beanCount": 5
 },
 {
-"id": "F|파나마|라스 브루하스",
+"id": "F|니카라과|핀카 리브레",
 "kind": "farm",
-"country": "파나마",
-"name": "라스 브루하스",
-"nameEn": "Las Brujas",
-"lat": 8.719,
-"lon": -82.4795,
-"precision": "farm",
-"evidence": "OSM Las Brujas, Dolega, Chiriquí",
-"beanCount": 5
+"country": "니카라과",
+"name": "핀카 리브레",
+"nameEn": "Finca Libre",
+"lat": 13.660171,
+"lon": -86.438706,
+"precision": "village",
+"evidence": "엘 피나베테, Mozonte, Nueva Segovia · OSM Mozonte",
+"source": "https://www.thegoodsourcing.com/finca-libre-fr",
+"beanCount": 4
 },
 {
 "id": "R|에티오피아|하라르",
@@ -931,6 +1103,19 @@
 "beanCount": 4
 },
 {
+"id": "F|콜롬비아|파라이소 92",
+"kind": "farm",
+"country": "콜롬비아",
+"name": "파라이소 92",
+"nameEn": "Finca El Paraíso 92",
+"lat": 2.702647,
+"lon": -76.526886,
+"precision": "village",
+"evidence": "베레다 로스 아라도스, Piendamó, Cauca · OSM Los Arados",
+"source": "https://www.pxlroasters.com/en/process-choc-thermique.html",
+"beanCount": 4
+},
+{
 "id": "R|과테말라|아카테낭고",
 "kind": "region",
 "country": "과테말라",
@@ -940,6 +1125,19 @@
 "lon": -90.9544419,
 "precision": "region",
 "evidence": "Acatenango, Chimaltenango, Guatemala",
+"beanCount": 3
+},
+{
+"id": "F|니카라과|엘 캄발라체",
+"kind": "farm",
+"country": "니카라과",
+"name": "엘 캄발라체",
+"nameEn": "El Cambalache",
+"lat": 13.720382,
+"lon": -86.50598,
+"precision": "village",
+"evidence": "Dipilto, Nueva Segovia · OSM Dipilto",
+"source": "https://auction.allianceforcoffeeexcellence.org/en/lots/el-cambalache",
 "beanCount": 3
 },
 {
@@ -1036,6 +1234,19 @@
 "lon": 38.4,
 "precision": "region",
 "evidence": "curated",
+"beanCount": 3
+},
+{
+"id": "F|인도|아자드 힌드",
+"kind": "farm",
+"country": "인도",
+"name": "아자드 힌드",
+"nameEn": "Azad Hind Estate",
+"lat": 12.240217,
+"lon": 75.915002,
+"precision": "village",
+"evidence": "Pollibetta, Virajpet, Kodagu, Karnataka · OSM Pollibetta",
+"source": "https://coffeeboard.gov.in/Exporter/DataBaseBook2023Final.pdf",
 "beanCount": 3
 },
 {
@@ -1363,15 +1574,29 @@
 "beanCount": 2
 },
 {
+"id": "F|코스타리카|돈 사비노",
+"kind": "farm",
+"country": "코스타리카",
+"name": "돈 사비노",
+"nameEn": "Don Sabino",
+"lat": 10.0876,
+"lon": -84.167061,
+"precision": "village",
+"evidence": "Carrizal, Alajuela(포아스·바르바 화산 기슭) · OSM Carrizal",
+"source": "https://www.cafeimports.com/europe/blog/2019/08/28/cafe-imports-europe-and-don-sabino-micromill-collaborate-on-exclusive-traceable-and-transparent-berlin-batch-for-berlin-coffee-festival/",
+"beanCount": 2
+},
+{
 "id": "F|콜롬비아|라 로카",
 "kind": "farm",
 "country": "콜롬비아",
 "name": "라 로카",
-"nameEn": "La Roca",
+"nameEn": "Finca La Roca",
 "lat": 2.2032,
 "lon": -77.222,
 "precision": "farm",
 "evidence": "OSM farm La Roca, Argelia, Cauca",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 2
 },
 {
@@ -1420,18 +1645,7 @@
 "lon": 98.4875,
 "precision": "farm",
 "evidence": "OSM peak Doi Inthanon, Chiang Mai",
-"beanCount": 2
-},
-{
-"id": "R|파나마|보케테",
-"kind": "region",
-"country": "파나마",
-"name": "보케테",
-"nameEn": "Boquete",
-"lat": 8.7407496,
-"lon": -82.3853832,
-"precision": "region",
-"evidence": "Boquete, Chiriquí, Panama",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 2
 },
 {
@@ -1440,10 +1654,11 @@
 "country": "파나마",
 "name": "하트만",
 "nameEn": "Finca Hartmann",
-"lat": 8.845,
-"lon": -82.7607,
+"lat": 8.844984,
+"lon": -82.760679,
 "precision": "farm",
 "evidence": "OSM Finca Hartmann, Santa Clara, Renacimiento",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 2
 },
 {
@@ -1468,6 +1683,19 @@
 "lon": -90.3,
 "precision": "region",
 "evidence": "curated",
+"beanCount": 1
+},
+{
+"id": "F|과테말라|산타클라라 라구나",
+"kind": "farm",
+"country": "과테말라",
+"name": "산타클라라 라구나",
+"nameEn": "Santa Clara La Laguna",
+"lat": 14.714886,
+"lon": -91.303538,
+"precision": "village",
+"evidence": "OSM Santa Clara La Laguna, Sololá",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 1
 },
 {
@@ -1591,18 +1819,6 @@
 "beanCount": 1
 },
 {
-"id": "F|브라질|로메로",
-"kind": "farm",
-"country": "브라질",
-"name": "로메로",
-"nameEn": "Fazenda Romero",
-"lat": -12.5597,
-"lon": -45.735,
-"precision": "farm",
-"evidence": "OSM farm Fazenda Romero, Bahia",
-"beanCount": 1
-},
-{
 "id": "R|브라질|바이아",
 "kind": "region",
 "country": "브라질",
@@ -1615,6 +1831,19 @@
 "beanCount": 1
 },
 {
+"id": "F|브라질|파젠다 로메로",
+"kind": "farm",
+"country": "브라질",
+"name": "파젠다 로메로",
+"nameEn": "Fazenda Romero",
+"lat": -12.5597,
+"lon": -45.735,
+"precision": "farm",
+"evidence": "OSM farm Fazenda Romero, Bahia",
+"source": "https://www.openstreetmap.org/",
+"beanCount": 1
+},
+{
 "id": "F|브라질|파젠다 카르모",
 "kind": "farm",
 "country": "브라질",
@@ -1624,6 +1853,7 @@
 "lon": -44.3317,
 "precision": "farm",
 "evidence": "OSM Fazenda Carmo da Cruz, Minas Gerais",
+"source": "https://www.openstreetmap.org/",
 "beanCount": 1
 },
 {
@@ -1903,6 +2133,19 @@
 "beanCount": 1
 },
 {
+"id": "F|코스타리카|핀카 마초",
+"kind": "farm",
+"country": "코스타리카",
+"name": "핀카 마초",
+"nameEn": "Finca Macho",
+"lat": 9.687739,
+"lon": -84.100293,
+"precision": "village",
+"evidence": "산타 로사, 레온 코르테스, Tarrazú · OSM Santa Rosa",
+"source": "https://coffeelibre.kr/product/new-crop-%EC%83%9D%EB%91%90-%EC%BD%94%EC%8A%A4%ED%83%80%EB%A6%AC%EC%B9%B4-%EC%82%B0%ED%83%80-%EB%A1%9C%EC%82%AC-1900-%ED%95%80%EC%B9%B4-%EB%A7%88%EC%B4%88-2026/7881/",
+"beanCount": 1
+},
+{
 "id": "R|콜롬비아|시에라네바다",
 "kind": "region",
 "country": "콜롬비아",
@@ -1996,6 +2239,7 @@
 "lon": -78.9253,
 "precision": "farm",
 "evidence": "카하마르카 산이그나시오 엘 디아만테 마을(이전 조사)",
+"source": "",
 "beanCount": 1
 }
 ],
@@ -3988,7 +4232,7 @@
 "레몬필"
 ],
 "firstSeen": "2026-11-13",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|산타클라라 라구나",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -4284,7 +4528,7 @@
 "클린"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 소코로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -4306,7 +4550,7 @@
 "캐러멜"
 ],
 "firstSeen": "2026-08-19",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 소코로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -4328,7 +4572,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-04-06",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 소코로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -4350,7 +4594,7 @@
 "녹차"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 소코로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -4372,7 +4616,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-08-19",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 소코로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5069,7 +5313,7 @@
 "라임"
 ],
 "firstSeen": "2026-10-17",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|엘 캄발라체",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5092,7 +5336,7 @@
 "브라운슈가"
 ],
 "firstSeen": "2026-10-17",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|엘 캄발라체",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5116,7 +5360,7 @@
 "브라운슈가"
 ],
 "firstSeen": "2026-10-17",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|엘 캄발라체",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5188,7 +5432,7 @@
 "메이플시럽"
 ],
 "firstSeen": "2026-11-06",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|핀카 리브레",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5211,7 +5455,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-10-17",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|핀카 리브레",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5234,7 +5478,7 @@
 "구운아몬드"
 ],
 "firstSeen": "2026-10-17",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|핀카 리브레",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -5258,7 +5502,7 @@
 "밀크초콜릿"
 ],
 "firstSeen": "2026-11-06",
-"placeId": "C|니카라과",
+"placeId": "F|니카라과|핀카 리브레",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -6765,7 +7009,7 @@
 "구운빵"
 ],
 "firstSeen": "2026-04-29",
-"placeId": "F|브라질|로메로",
+"placeId": "F|브라질|파젠다 로메로",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -12950,7 +13194,7 @@
 "헤이즐넛"
 ],
 "firstSeen": "2026-07-30",
-"placeId": "C|인도",
+"placeId": "F|인도|아자드 힌드",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -12972,7 +13216,7 @@
 "블랙슈가"
 ],
 "firstSeen": "2026-07-30",
-"placeId": "C|인도",
+"placeId": "F|인도|아자드 힌드",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -12996,7 +13240,7 @@
 "블랙베리"
 ],
 "firstSeen": "2026-07-30",
-"placeId": "C|인도",
+"placeId": "F|인도|아자드 힌드",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15324,7 +15568,7 @@
 "플로럴"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15345,7 +15589,7 @@
 "말린꽃"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15368,7 +15612,7 @@
 "토피"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15389,7 +15633,7 @@
 "달콤한"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15409,7 +15653,7 @@
 "포도"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15429,7 +15673,7 @@
 "시나몬브레드"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15446,7 +15690,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 사비노",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15463,7 +15707,7 @@
 "process": "더블 퍼먼테이션 내추럴",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 사비노",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15736,7 +15980,7 @@
 "process": "블랙 Diamond",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15753,7 +15997,7 @@
 "process": "블랙 Diamond",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15770,7 +16014,7 @@
 "process": "Alma Negra",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15787,7 +16031,7 @@
 "process": "블랙 허니",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15804,7 +16048,7 @@
 "process": "Perla Negra",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15821,7 +16065,7 @@
 "process": "Alma Negra",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -15838,7 +16082,7 @@
 "process": "옐로우 Diamond",
 "cupNotes": [],
 "firstSeen": "2026-11-20",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -16176,7 +16420,7 @@
 "사탕수수"
 ],
 "firstSeen": "2026-07-17",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|핀카 마초",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -17119,7 +17363,7 @@
 "라임"
 ],
 "firstSeen": "2025-11-17",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|파라이소 92",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18509,7 +18753,7 @@
 "아카시아꿀"
 ],
 "firstSeen": "2026-10-31",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18530,7 +18774,7 @@
 "패션프루트"
 ],
 "firstSeen": "2026-07-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18552,7 +18796,7 @@
 "체리럼초콜릿"
 ],
 "firstSeen": "2026-06-06",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18573,7 +18817,7 @@
 "멜론"
 ],
 "firstSeen": "2026-07-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18590,7 +18834,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": "2026-07-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -18885,7 +19129,7 @@
 "자몽"
 ],
 "firstSeen": "2026-04-06",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -20294,7 +20538,7 @@
 "캐러멜시럽"
 ],
 "firstSeen": "2026-04-23",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|파라이소 92",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -20762,7 +21006,7 @@
 "다크초콜릿"
 ],
 "firstSeen": "2026-06-10",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -20785,7 +21029,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-11-11",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -20802,7 +21046,7 @@
 "process": "이중 무산소 워시드",
 "cupNotes": [],
 "firstSeen": "2026-11-11",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21663,7 +21907,7 @@
 "화이트초콜릿"
 ],
 "firstSeen": "2026-09-30",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21685,7 +21929,7 @@
 "리치"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21709,7 +21953,7 @@
 "마카다미아"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21826,7 +22070,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21848,7 +22092,7 @@
 "카카오닙스"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21870,7 +22114,7 @@
 "샤인머스캣"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -21892,7 +22136,7 @@
 "캐러멜"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE",
 "생두모아"
@@ -22786,7 +23030,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 인헤르또",
 "sources": [
 "생두모아"
 ],
@@ -22834,7 +23078,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|엘 인헤르또",
 "sources": [
 "생두모아"
 ],
@@ -23668,7 +23912,7 @@
 "탠저린"
 ],
 "firstSeen": "2026-06-23",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23691,7 +23935,7 @@
 "메이플시럽"
 ],
 "firstSeen": "2026-06-23",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23715,7 +23959,7 @@
 "만다린"
 ],
 "firstSeen": "2026-01-14",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23738,7 +23982,7 @@
 "건포도"
 ],
 "firstSeen": "2025-10-23",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23763,7 +24007,7 @@
 "배"
 ],
 "firstSeen": "2026-01-14",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23787,7 +24031,7 @@
 "배"
 ],
 "firstSeen": "2026-06-08",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23811,7 +24055,7 @@
 "자두"
 ],
 "firstSeen": "2026-06-15",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -23836,7 +24080,7 @@
 "아몬드"
 ],
 "firstSeen": "2026-06-23",
-"placeId": "C|과테말라",
+"placeId": "F|과테말라|로스 꼬네호스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -39361,7 +39605,7 @@
 "process": "Natural Anaerobic",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "생두모아"
 ],
@@ -39377,7 +39621,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "생두모아"
 ],
@@ -39393,7 +39637,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "생두모아"
 ],
@@ -39409,7 +39653,7 @@
 "process": "Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "생두모아"
 ],
@@ -39425,7 +39669,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "생두모아"
 ],
@@ -39710,7 +39954,7 @@
 "아몬드초콜릿"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -39731,7 +39975,7 @@
 "사탕수수"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -39752,7 +39996,7 @@
 "브라운슈가"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -39773,7 +40017,7 @@
 "메이플시럽"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|엘살바도르",
+"placeId": "F|엘살바도르|핀카 몬테비디오",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -45953,7 +46197,7 @@
 "process": "허니",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "생두모아"
 ],
@@ -45969,7 +46213,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "생두모아"
 ],
@@ -46033,7 +46277,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "생두모아"
 ],
@@ -46445,7 +46689,7 @@
 "탠저린"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -46465,7 +46709,7 @@
 "멜론"
 ],
 "firstSeen": "2026-09-10",
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|돈 마요",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -46770,7 +47014,7 @@
 "process": "Double Diamond",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|코스타리카",
+"placeId": "F|코스타리카|라스 라하스",
 "sources": [
 "생두모아"
 ],
@@ -48078,7 +48322,7 @@
 "process": "Mosto Natural Thermal Shock",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48110,7 +48354,7 @@
 "process": "Mosto Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48126,7 +48370,7 @@
 "process": "Mosto Natural Thermal Shock",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48142,7 +48386,7 @@
 "process": "Mosto Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48158,7 +48402,7 @@
 "process": "Mosto Washed Thermal Shock",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48174,7 +48418,7 @@
 "process": "Mosto Washed Thermal Shock",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "생두모아"
 ],
@@ -48350,7 +48594,7 @@
 "process": "AN-Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48366,7 +48610,7 @@
 "process": "Honey",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48382,7 +48626,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48398,7 +48642,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48414,7 +48658,7 @@
 "process": "Natural Anaerobic",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48430,7 +48674,7 @@
 "process": "Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48446,7 +48690,7 @@
 "process": "Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "생두모아"
 ],
@@ -48814,7 +49058,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "생두모아"
 ],
@@ -51412,7 +51656,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "생두모아"
 ],
@@ -51428,7 +51672,7 @@
 "process": "무산소워시드+모스토",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "생두모아"
 ],
@@ -51450,7 +51694,7 @@
 "소나무"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51471,7 +51715,7 @@
 "애플민트"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 디비소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51693,7 +51937,7 @@
 "타르트주스"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51714,7 +51958,7 @@
 "골든베리"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51735,7 +51979,7 @@
 "꿀"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51755,7 +51999,7 @@
 "적포도"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51776,7 +52020,7 @@
 "풍선껌"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51795,7 +52039,7 @@
 "레몬밤"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51816,7 +52060,7 @@
 "사탕수수"
 ],
 "firstSeen": "2026-11-12",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 트리운포",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51838,7 +52082,7 @@
 "캐러멜"
 ],
 "firstSeen": "2025-10-24",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -51860,7 +52104,7 @@
 "요거트"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -52066,7 +52310,7 @@
 "스테비아"
 ],
 "firstSeen": "2026-09-18",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -52086,7 +52330,7 @@
 "파파야"
 ],
 "firstSeen": "2026-04-02",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -52106,7 +52350,7 @@
 "말린엘더플라워"
 ],
 "firstSeen": "2026-04-02",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|인마쿨라다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -52932,7 +53176,7 @@
 "장미"
 ],
 "firstSeen": "2025-12-03",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|파라이소 92",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -52948,7 +53192,7 @@
 "process": null,
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|파라이소 92",
 "sources": [
 "생두모아"
 ],
@@ -53585,7 +53829,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-01-28",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -53609,7 +53853,7 @@
 "오렌지"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -53625,7 +53869,7 @@
 "process": null,
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "생두모아"
 ],
@@ -53641,7 +53885,7 @@
 "process": "세미 워시드",
 "cupNotes": [],
 "firstSeen": "2026-11-11",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -53657,7 +53901,7 @@
 "process": "세미워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "생두모아"
 ],
@@ -53679,7 +53923,7 @@
 "열대과일"
 ],
 "firstSeen": "2026-01-28",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -53695,7 +53939,7 @@
 "process": null,
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "생두모아"
 ],
@@ -53720,7 +53964,7 @@
 "수박"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -53736,7 +53980,7 @@
 "process": null,
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|콜롬비아",
+"placeId": "F|콜롬비아|엘 파라이소",
 "sources": [
 "생두모아"
 ],
@@ -54934,7 +55178,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -54998,7 +55242,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "생두모아"
 ],
@@ -55014,7 +55258,7 @@
 "process": "무산소 내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55030,7 +55274,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55046,7 +55290,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55078,7 +55322,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55110,7 +55354,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -55142,7 +55386,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55158,7 +55402,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -55286,7 +55530,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|라스 브루하스",
 "sources": [
 "생두모아"
 ],
@@ -55302,7 +55546,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|라스 브루하스",
 "sources": [
 "생두모아"
 ],
@@ -55318,7 +55562,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|라스 브루하스",
 "sources": [
 "생두모아"
 ],
@@ -55877,7 +56121,7 @@
 "꿀"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -55899,7 +56143,7 @@
 "파넬라"
 ],
 "firstSeen": "2026-10-12",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -55922,7 +56166,7 @@
 "파넬라"
 ],
 "firstSeen": "2026-10-12",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -55943,7 +56187,7 @@
 "망고"
 ],
 "firstSeen": "2026-09-30",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -55966,7 +56210,7 @@
 "살구"
 ],
 "firstSeen": "2026-11-06",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -55988,7 +56232,7 @@
 "자두"
 ],
 "firstSeen": "2026-04-02",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56067,7 +56311,7 @@
 "자두"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|라스 브루하스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56088,7 +56332,7 @@
 "견과류"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|라스 브루하스",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56244,7 +56488,7 @@
 "process": "Natural",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "R|파나마|보케테",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -56265,7 +56509,7 @@
 "살구"
 ],
 "firstSeen": "2026-10-07",
-"placeId": "R|파나마|보케테",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56567,7 +56811,7 @@
 "복숭아"
 ],
 "firstSeen": "2026-07-20",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56588,7 +56832,7 @@
 "초콜릿"
 ],
 "firstSeen": "2026-07-20",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56604,7 +56848,7 @@
 "process": null,
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "생두모아"
 ],
@@ -56643,7 +56887,7 @@
 "process": "Washed",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "생두모아"
 ],
@@ -56665,7 +56909,7 @@
 "캔디라이크"
 ],
 "firstSeen": "2026-11-04",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56688,7 +56932,7 @@
 "청포도"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56710,7 +56954,7 @@
 "베르가못"
 ],
 "firstSeen": "2026-06-13",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56733,7 +56977,7 @@
 "애플민트"
 ],
 "firstSeen": "2026-06-13",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56756,7 +57000,7 @@
 "바닐라"
 ],
 "firstSeen": "2026-06-13",
-"placeId": "C|파나마",
+"placeId": "F|파나마|엘리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56975,7 +57219,7 @@
 "탠저린"
 ],
 "firstSeen": "2026-10-09",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -56996,7 +57240,7 @@
 "캐러멜"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -57017,7 +57261,7 @@
 "복숭아"
 ],
 "firstSeen": "2025-10-22",
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -57279,7 +57523,7 @@
 "오렌지"
 ],
 "firstSeen": "2026-09-02",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -57301,7 +57545,7 @@
 "건망고"
 ],
 "firstSeen": "2026-09-02",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -57323,7 +57567,7 @@
 "메이플시럽"
 ],
 "firstSeen": "2026-09-02",
-"placeId": "C|파나마",
+"placeId": "F|파나마|에스메랄다",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],
@@ -57362,7 +57606,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -57378,7 +57622,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -57394,7 +57638,7 @@
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -57410,7 +57654,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -57426,7 +57670,7 @@
 "process": "내추럴",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],
@@ -57442,7 +57686,7 @@
 "process": "허니",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "C|파나마",
+"placeId": "F|파나마|레리다",
 "sources": [
 "생두모아"
 ],

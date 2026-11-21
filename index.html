@@ -227,6 +227,28 @@
   .res .rm{display:block;font-size:11px;color:var(--ink-soft);margin-top:2px}
   .res .rt{display:block;font-size:10.5px;font-weight:800;color:var(--terra);margin-top:3px;letter-spacing:.02em}
 
+  /* farm / origin rows in search results */
+  .res.places{border-color:#E7DCC9;background:#FFFDF6}
+  .res .tag{display:inline-flex;align-items:center;font-size:9px;font-weight:800;letter-spacing:.06em;padding:2px 6px;border-radius:4px;background:var(--cream-2);color:#8A5A2B;margin-left:6px;vertical-align:1px;text-transform:uppercase}
+  .sec-h{margin:16px 0 8px;font-size:10.5px;font-weight:800;letter-spacing:.13em;color:#9A8F80;text-transform:uppercase}
+
+  /* live re-lookup for country-level beans */
+  .refine{margin:14px 0 0;padding:12px 13px;background:#FFFDF6;border:1px solid #EADFCB;border-radius:12px}
+  .refine p{margin:0;font-size:11.5px;line-height:1.6;color:var(--ink-soft)}
+  .refine .rbtn{
+    margin-top:9px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;
+    padding:8px 12px;border-radius:9px;background:var(--green);color:#FFF8EF;
+  }
+  .refine .rbtn[disabled]{opacity:.6}
+  .refine .out{margin-top:10px}
+  .refine .hit{
+    display:flex;width:100%;text-align:left;gap:9px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+    border-radius:10px;padding:9px 10px;margin-top:6px;
+  }
+  .refine .hit .hn{display:block;font-size:12px;font-weight:800}
+  .refine .hit .hd{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px;line-height:1.5}
+  .refine .hit .go{flex:none;font-size:10.5px;font-weight:800;color:var(--terra);padding-top:2px}
+
   .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center}
   .empty h3{margin:0 0 6px;font-size:14.5px;font-weight:800}
   .empty p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.65}
@@ -535,6 +557,8 @@ function cardForPlace(p) {
     ${vars.length ? `<p class="story">품종: ${vars.slice(0, 6).map(([k, v]) => `${esc(k)} <small style="color:#9A8F80">${v}</small>`).join(" · ")}</p>` : ""}
     <div class="src">
       <div class="row"><span class="k">좌표</span><span>${esc(p.evidence || "OpenStreetMap")} ${p.precision === "country" ? "· 국가 대표 좌표" : ""}</span></div>
+      ${p.source ? `<div class="row"><span class="k">근거</span><span><a href="${esc(p.source)}" target="_blank" rel="noopener">농장·산지 소재 자료</a></span></div>` : ""}
+      ${p.precision === "village" ? `<div class="row"><span class="k">단위</span><span>농장이 있는 마을·베레다 중심 좌표입니다.</span></div>` : ""}
     </div>
     <div class="qr">
       <code>${esc(location.origin + location.pathname + "?place=" + encodeURIComponent(p.id))}</code>
@@ -548,6 +572,17 @@ function cardForPlace(p) {
     ${beans.slice(0, 12).map((b) => beanRow(b)).join("")}
     ${beans.length > 12 ? `<p class="qr-note">외 ${beans.length - 12}종은 검색으로 찾아보세요.</p>` : ""}
   </div>` : ""}`;
+}
+
+function placeRow(p) {
+  const n = p.beanCount || (beansByPlace.get(p.id) || []).length;
+  const tier = p.precision === "farm" ? "농장" : p.precision === "village" ? "마을" : p.precision === "region" ? "산지" : "국가";
+  const color = p.kind === "farm" ? "#9A5B2E" : p.kind === "country" ? "#8C8377" : "#2F4636";
+  return `<button type="button" class="res places" data-place="${esc(p.id)}">
+    <span class="dot" style="background:${color}"></span>
+    <span><span class="rn">${esc(p.country)} · ${esc(p.name)}<span class="tag">${tier}</span></span>
+    <span class="rm">${esc(p.nameEn || "")}${p.nameEn ? " · " : ""}${n.toLocaleString()}종</span></span>
+  </button>`;
 }
 
 function beanRow(b) {
@@ -576,6 +611,7 @@ function cardForBean(b) {
       <div class="stat"><dt>품종</dt><dd>${esc(b.variety || "—")}</dd></div>
       <div class="stat"><dt>가공</dt><dd>${esc(b.process || "—")}</dd></div>
       ${b.farm ? `<div class="stat wide"><dt>농장 · 워싱스테이션</dt><dd>${esc(b.farm)}</dd></div>` : ""}
+      ${p && p.kind === "farm" ? `<div class="stat wide"><dt>지도 위치</dt><dd>${esc(p.name)} · ${p.precision === "farm" ? "농장 좌표" : p.precision === "village" ? "마을 단위" : "산지 단위"}</dd></div>` : ""}
     </dl>
     ${b.cupNotes && b.cupNotes.length ? `<div class="notes">${b.cupNotes.map((n) => `<span class="note">${esc(n)}</span>`).join("")}</div>` : ""}
     <div class="src">
@@ -583,6 +619,7 @@ function cardForBean(b) {
       ${b.firstSeen ? `<div class="row"><span class="k">관측</span><span>${esc(b.firstSeen)} 이후 목록에 있음</span></div>` : ""}
       <div class="row"><span class="k">안내</span><span>가격·매입 정보는 넣지 않습니다.</span></div>
     </div>
+    ${p && p.precision === "country" ? refineBlock(b) : ""}
     <div class="qr">
       <code>${esc(location.origin + location.pathname + "?bean=" + encodeURIComponent(b.id))}</code>
       <button class="copy" data-copy="${esc(location.origin + location.pathname + "?bean=" + encodeURIComponent(b.id))}">링크 복사</button>
@@ -611,8 +648,74 @@ function cardForLineup(l) {
   </div>`;
 }
 
-function countNotes(beans) {
-  const m = new Map();
+/* ---------- 국가 단위 카드: 농장·산지 상세 위치를 OSM에서 바로 찾기 ---------- */
+function refineBlock(b) {
+  return `<div class="refine">
+    <p>국가 대표 좌표만 있습니다. 농장·산지 이름으로 OpenStreetMap을 한 번 더 찾아 생는 위치를 볼 수 있습니다.</p>
+    <button type="button" class="rbtn" data-lookup="${esc(b.id)}">농장 상세 위치 찾기</button>
+    <div class="out"></div>
+  </div>`;
+}
+
+const refineLayer = L.layerGroup().addTo(map);
+
+function latinWords(s) {
+  return String(s || "")
+    .replace(/[^A-Za-z0-9'\- ]/g, " ")
+    .replace(/\b(finca|hacienda|estate|farm|lot|micro|natural|washed|honey|anaerobic)\b/gi, " ")
+    .replace(/\b[0-9]{2,}\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function showRefineHit(lat, lon, name) {
+  refineLayer.clearLayers();
+  L.circleMarker([lat, lon], { radius: 9, color: "#C2603C", weight: 2, dashArray: "3 3", fillColor: "#C2603C", fillOpacity: .18 })
+    .addTo(refineLayer)
+    .bindTooltip(`<b>${esc(name)}</b><span>실시간 조회 참고 위치</span>`, { direction: "top", offset: [0, -6], className: "lt-tip", permanent: false });
+  map.flyTo([lat, lon], 12, { duration: 1.1 });
+}
+
+async function lookupFarm(btn) {
+  const b = CAT.beans.find((x) => x.id === btn.dataset.lookup);
+  if (!b) return;
+  const p = placeById.get(b.placeId) || {};
+  const out = btn.parentElement.querySelector(".out");
+  const name = latinWords(b.farm) ? b.farm : latinWords(b.name);
+  const words = latinWords(name);
+  const countryEn = p.nameEn || "";
+  if (words.replace(/\s/g, "").length < 3) {
+    out.innerHTML = `<p class="qr-note">농장 이름의 영문 표기가 없어 자동 조회를 할 수 없습니다. ${countryEn ? `<a href="https://www.openstreetmap.org/search?query=${encodeURIComponent(countryEn)}" target="_blank" rel="noopener">OpenStreetMap에서 직접 찾기</a>` : ""}</p>`;
+    return;
+  }
+  const query = `${words}, ${countryEn}`.replace(/^,\s*/, "");
+  btn.disabled = true;
+  out.innerHTML = `<p class="qr-note"><span class="spin"></span>OpenStreetMap에서 “${esc(query)}” 찾는 중…</p>`;
+  try {
+    const url = "https://nominatim.openstreetmap.org/search?" + new URLSearchParams({ format: "jsonv2", limit: "3", q: query, "accept-language": "ko,en" });
+    const res = await fetch(url, { headers: { Accept: "application/json" } });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const list = await res.json();
+    if (!list.length) {
+      out.innerHTML = `<p class="qr-note">“${esc(query)}”로 찾은 곳이 없습니다. <a href="https://www.openstreetmap.org/search?query=${encodeURIComponent(query)}" target="_blank" rel="noopener">OpenStreetMap에서 직접 확인</a></p>`;
+      return;
+    }
+    out.innerHTML = `<p class="qr-note">OpenStreetMap 실시간 조회 결과입니다. 카탈로그 좌표가 아니라 참고용입니다.</p>` +
+      list.map((h) => `<button type="button" class="hit" data-hit="${esc(String(h.lat))},${esc(String(h.lon))}" data-hitname="${esc(h.name || h.display_name)}">
+        <span><span class="hn">${esc(h.name || h.display_name)}</span><span class="hd">${esc(String(h.display_name).slice(0, 90))}</span></span>
+        <span class="go">지도로</span></button>`).join("");
+    out.querySelectorAll("[data-hit]").forEach((el) => el.addEventListener("click", () => {
+      const [la, lo] = el.dataset.hit.split(",").map(Number);
+      showRefineHit(la, lo, el.dataset.hitname);
+    }));
+  } catch (e) {
+    out.innerHTML = `<p class="qr-note">실시간 조회가 지금은 되지 않습니다(${esc(e.message)}). 잠시 뒤 다시 시도해 주세요.</p>`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function countNotes(beans) {  const m = new Map();
   for (const b of beans) for (const n of b.cupNotes || []) m.set(n, (m.get(n) || 0) + 1);
   return [...m.entries()].sort((a, b) => b[1] - a[1]);
 }
@@ -630,9 +733,13 @@ function renderSheet() {
   else if (state.selectedLineup) html = cardForLineup(state.selectedLineup);
   else if (state.results) {
     const r = state.results;
+    const ps = searchPlaces(state.query).slice(0, 6);
     html = `<div class="results">
       <div class="res-head"><h2>“${esc(state.query)}” 검색 결과</h2><span>${r.length.toLocaleString()}종</span></div>
-      ${r.slice(0, 60).map(beanRow).join("")}
+      ${ps.length ? `<div class="sec-h">산지 · 농장</div>
+        ${ps.map(placeRow).join("")}
+        <div class="sec-h">원두</div>` : ""}
+      ${r.length ? r.slice(0, 60).map(beanRow).join("") : `<p class="qr-note">이 이름의 생두는 카탈로그에 없습니다. 농장·산지 이름으로 다시 검색해 보세요.</p>`}
       ${r.length > 60 ? `<p class="qr-note">상위 60종만 표시합니다. 검색어를 좁혀 보세요.</p>` : ""}
     </div>`;
   } else {
@@ -702,28 +809,50 @@ function bindSheet() {
     try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "복사됨"; b.classList.add("done"); }
     catch { b.textContent = "복사 실패"; }
   }));
+  sheetEl.querySelectorAll("[data-lookup]").forEach((b) => b.addEventListener("click", () => lookupFarm(b)));
 }
 
 /* ---------- 선택 ---------- */
+/* 줌 단계: 농장 12 · 마을/베레다 11 · 산지 9 · 국가 5 */
+const ZOOM = { farm: 12, village: 11, region: 9, country: 5 };
+function zoomFor(p) {
+  if (!p) return 5;
+  return ZOOM[p.precision] != null ? ZOOM[p.precision] : (p.kind === "country" ? 5 : 9);
+}
+
 function selectPlace(p) {
   state.place = p; state.bean = null; state.selectedLineup = null; state.results = null;
-  map.flyTo([p.lat, p.lon], p.kind === "country" ? 4 : 7, { duration: .9 });
+  map.flyTo([p.lat, p.lon], zoomFor(p), { duration: 1.1 });
   drawPins(); renderSheet(); syncUrl();
 }
 function selectBean(b) {
   state.bean = b; state.selectedLineup = null; state.results = null;
   const p = placeById.get(b.placeId);
   state.place = p || null;
-  if (p) map.flyTo([p.lat, p.lon], p.kind === "country" ? 4 : 7, { duration: .9 });
+  if (p) map.flyTo([p.lat, p.lon], zoomFor(p), { duration: 1.1 });
   drawPins(); renderSheet(); syncUrl();
 }
 function selectLineup(l) {
   state.selectedLineup = l; state.bean = null; state.place = null; state.results = null;
-  map.flyTo([l.lat, l.lon], 8, { duration: .9 });
+  map.flyTo([l.lat, l.lon], l.precision === "farm" ? 11 : 9, { duration: 1.1 });
   drawPins(); renderSheet(); syncUrl();
 }
 
 /* ---------- 검색 ---------- */
+const PLACE_RANK = { farm: 0, village: 1, region: 2, country: 3 };
+function searchPlaces(q) {
+  const toks = String(q).trim().split(/\s+/).filter(Boolean).map(norm).filter(Boolean);
+  if (!toks.length || !CAT.places.length) return [];
+  const out = [];
+  for (const p of CAT.places) {
+    const t = norm([p.name, p.nameEn, p.country].filter(Boolean).join(" "));
+    let ok = true;
+    for (const k of toks) if (!t.includes(k)) { ok = false; break; }
+    if (ok) out.push(p);
+  }
+  out.sort((a, b) => (PLACE_RANK[a.precision] ?? 4) - (PLACE_RANK[b.precision] ?? 4) || (b.beanCount || 0) - (a.beanCount || 0));
+  return out;
+}
 function hay(b) {
   return norm([b.name, b.region, b.farm, b.country, b.variety, b.process, (b.cupNotes || []).join(" ")].join(" "));
 }
@@ -744,9 +873,13 @@ function searchBeans(q) {
   return out;
 }
 function suggest(q) {
-  const r = searchBeans(q).slice(0, 8);
-  if (!r.length) { sugEl.innerHTML = `<div class="live">${esc(q)} — 카탈로그에서 찾지 못했습니다. 산지 이름이나 국가로 검색해 보세요.</div>`; return; }
-  sugEl.innerHTML = r.map((b) => `<button type="button" data-sb="${esc(b.id)}">
+  const places = searchPlaces(q).slice(0, 3);
+  const r = searchBeans(q).slice(0, places.length ? 4 : 8);
+  if (!r.length && !places.length) { sugEl.innerHTML = `<div class="live">${esc(q)} — 카탈로그에서 찾지 못했습니다. 산지 이름이나 국가로 검색해 보세요.</div>`; return; }
+  sugEl.innerHTML = places.map((p) => `<button type="button" data-sp="${esc(p.id)}" class="p">
+    <span class="dot" style="background:${p.kind === "farm" ? "#9A5B2E" : "#2F4636"}"></span>
+    <span><span class="nm">${esc(p.country)} · ${esc(p.name)}</span><span class="mt">${p.precision === "farm" ? "농장" : p.precision === "country" ? "국가" : "산지"} · ${(p.beanCount || 0).toLocaleString()}종</span></span>
+  </button>`).join("") + r.map((b) => `<button type="button" data-sb="${esc(b.id)}">
     <span class="dot" style="background:#2F4636"></span>
     <span><span class="nm">${esc(b.name)}</span><span class="mt">${esc([b.country, b.region, b.process].filter(Boolean).join(" · "))}</span></span>
   </button>`).join("");
@@ -755,6 +888,11 @@ function suggest(q) {
     sugEl.classList.remove("on");
     qEl.value = b.name;
     selectBean(b);
+  }));
+  sugEl.querySelectorAll("[data-sp]").forEach((el) => el.addEventListener("click", () => {
+    const p = placeById.get(el.dataset.sp);
+    sugEl.classList.remove("on");
+    if (p) selectPlace(p);
   }));
 }
 
