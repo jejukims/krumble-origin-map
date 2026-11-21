@@ -7,6 +7,7 @@
 <title>KRUMBLE ROASTERS · ORIGIN MAP</title>
 <meta name="description" content="크럼블로스터스 커피 산지·농장 지도 — 국내에 들어온 생두 2,800여 종이 어디서 자랐는지 지도에서 보여줍니다." />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <style>
   :root{
@@ -117,6 +118,14 @@
   .pin.lineup{background:var(--terra);width:30px;height:30px}
   .pin.farm{background:#9A5B2E}
   .pin.country{background:#8C8377}
+  .cluster{
+    display:flex;align-items:center;justify-content:center;border-radius:50%;
+    background:#FFFDF8;border:2px solid var(--green);color:var(--ink);
+    font-size:12px;font-weight:800;letter-spacing:-.02em;
+    box-shadow:0 6px 16px -8px rgba(34,30,26,.6);
+  }
+  .cluster.warm{border-color:var(--terra);color:var(--terra)}
+  .cluster span{transform:translateY(0)}
   .pin.sel{transform:rotate(-45deg) scale(1.22);box-shadow:0 8px 20px -6px rgba(34,30,26,.6)}
   .pin-wrap.sel::after{
     content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;
@@ -290,6 +299,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 /* =========================================================
    KRUMBLE ROASTERS · ORIGIN MAP  v0.2
@@ -390,7 +400,24 @@ L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_L
   maxZoom: 16
 }).addTo(map);
 
-const pinLayer = L.layerGroup().addTo(map);
+const clusterLayer = L.markerClusterGroup({
+  showCoverageOnHover: false,
+  spiderfyOnMaxZoom: true,
+  disableClusteringAtZoom: 8,
+  maxClusterRadius: 48,
+  iconCreateFunction: (cluster) => {
+    const n = cluster.getAllChildMarkers().reduce((sum, m) => sum + (m.options.beanCount || 0), 0);
+    const size = Math.min(54, 34 + Math.round(Math.log10(Math.max(n, 1)) * 9));
+    const cls = n >= 100 ? "cluster warm" : "cluster";
+    return L.divIcon({
+      html: `<div class="${cls}" style="width:${size}px;height:${size}px"><span>${n >= 1000 ? Math.round(n / 100) / 10 + "k" : n}</span></div>`,
+      className: "cluster-wrap",
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2]
+    });
+  }
+}).addTo(map);
+const lineupLayer = L.layerGroup().addTo(map);
 const markers = new Map();
 
 function pinIcon(item) {
@@ -423,17 +450,18 @@ function visibleItems() {
 }
 
 function drawPins() {
-  pinLayer.clearLayers();
+  clusterLayer.clearLayers();
+  lineupLayer.clearLayers();
   markers.clear();
   const items = visibleItems();
   for (const item of items) {
-    const m = L.marker([item.lat, item.lon], { icon: pinIcon(item), title: item.name, keyboard: false });
+    const m = L.marker([item.lat, item.lon], { icon: pinIcon(item), title: item.name, keyboard: false, beanCount: item.count || 0 });
     m.bindTooltip(`<b>${esc(item.name)}</b><span>${esc(item.sub)}</span>`, { direction: "top", offset: [0, -18], className: "lt-tip" });
     m.on("click", () => {
       if (item.lineup) selectLineup(item.lineup);
       else selectPlace(item.place);
     });
-    m.addTo(pinLayer);
+    m.addTo(item.lineup ? lineupLayer : clusterLayer);
     markers.set(item.id, m);
   }
   drawPins.lastCount = items.length;
