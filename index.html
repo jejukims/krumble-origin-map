@@ -421,6 +421,11 @@ L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_L
   attribution: "지도 © Esri, HERE, Garmin, OpenStreetMap contributors",
   maxZoom: 16
 }).addTo(map);
+// 지명 라벨(농장·산지 단위로 들어갔을 때 위치를 읽을 수 있게)
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 16,
+  pane: "overlayPane"
+}).addTo(map);
 
 const clusterLayer = L.markerClusterGroup({
   showCoverageOnHover: false,
