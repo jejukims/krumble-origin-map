@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FBF7F0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>KRUMBLE ROASTERS · ORIGIN MAP</title>
+<meta name="description" content="크럼블로스터스 커피 산지·농장 지도 — 원두 이름을 검색하면 한 잔이 시작된 곳을 보여줍니다." />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  :root{
+    --cream:#FBF7F0;
+    --cream-2:#F3ECE1;
+    --ink:#221E1A;
+    --ink-soft:#5A5148;
+    --line:#E2D8C9;
+    --terra:#C2603C;
+    --terra-soft:#E8B9A6;
+    --green:#2F4636;
+    --green-soft:#7E9478;
+    --shadow:0 10px 30px -18px rgba(34,30,26,.45);
+    --r:18px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;height:100%}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Pretendard Variable',Pretendard,'Noto Sans KR',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    font-size:15px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  input{font-family:inherit}
+
+  .app{display:flex;flex-direction:column;height:100dvh}
+
+  /* ---------- header ---------- */
+  .head{padding:18px 18px 12px;flex:none;background:var(--cream);position:relative;z-index:5}
+  .brand{display:flex;align-items:center;gap:9px}
+  .bean{width:22px;height:22px;flex:none}
+  .brand-txt{font-size:11.5px;letter-spacing:.22em;font-weight:700;color:var(--ink)}
+  .brand-txt span{color:var(--terra)}
+  .lede{margin:10px 0 0;font-size:22px;line-height:1.28;font-weight:700;letter-spacing:-.02em}
+  .lede em{font-style:normal;color:var(--terra)}
+  .lede small{display:block;margin-top:6px;font-size:12.5px;font-weight:500;color:var(--ink-soft);letter-spacing:0}
+
+  /* ---------- search ---------- */
+  .search{position:relative;margin:14px 0 0}
+  .search-box{
+    display:flex;align-items:center;gap:9px;
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:0 6px 0 14px;height:48px;box-shadow:var(--shadow);
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .search-box:focus-within{border-color:var(--terra);box-shadow:0 0 0 4px rgba(194,96,60,.10)}
+  .search-box svg{flex:none;color:var(--ink-soft)}
+  #q{flex:1;min-width:0;border:0;outline:0;background:none;font-size:15px;color:var(--ink)}
+  #q::placeholder{color:#A79C8D}
+  .go{
+    flex:none;height:36px;padding:0 15px;border-radius:999px;background:var(--ink);color:#FFF8EF;
+    font-size:12.5px;font-weight:700;letter-spacing:.02em;
+  }
+  .go:active{transform:scale(.97)}
+  .sugg{
+    position:absolute;left:0;right:0;top:54px;z-index:30;
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 22px 50px -20px rgba(34,30,26,.4);
+    padding:6px;display:none;max-height:46vh;overflow:auto;
+  }
+  .sugg.on{display:block}
+  .sugg button{
+    display:flex;width:100%;text-align:left;gap:10px;align-items:center;
+    padding:9px 10px;border-radius:11px;
+  }
+  .sugg button:hover,.sugg button:focus-visible{background:var(--cream-2)}
+  .sugg .nm{font-weight:700;font-size:13.5px;letter-spacing:-.01em}
+  .sugg .mt{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
+  .sugg .dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .sugg .live{padding:10px;font-size:12.5px;color:var(--ink-soft)}
+
+  /* ---------- chips ---------- */
+  .chips{
+    flex:none;display:flex;gap:7px;overflow-x:auto;padding:12px 18px 12px;
+    scrollbar-width:none;background:var(--cream);position:relative;z-index:4;
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:none;height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--line);
+    background:#fff;font-size:12.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:5px;transition:all .16s ease;
+  }
+  .chip.on{background:var(--ink);border-color:var(--ink);color:#FFF8EF}
+  .chip.on .cnt{color:var(--terra-soft)}
+  .chip .cnt{font-size:10.5px;opacity:.7;font-weight:700}
+  .chip.star.on{background:var(--terra);border-color:var(--terra);color:#fff}
+
+  /* ---------- map ---------- */
+  .mapwrap{position:relative;flex:none;height:40dvh;min-height:240px;background:var(--cream-2);z-index:1}
+  #map{position:absolute;inset:0;background:var(--cream-2)}
+  .leaflet-container{font-family:inherit;background:#EFE7DA}
+  .leaflet-tile-pane{filter:sepia(.12) saturate(.9) brightness(1.02)}
+  .leaflet-control-attribution{font-size:9.5px!important;background:rgba(251,247,240,.86)!important;color:#6B6259!important}
+  .leaflet-control-attribution a{color:#6B6259!important}
+  .leaflet-control-zoom{border:0!important;box-shadow:var(--shadow)!important;margin:10px 10px 0 0!important}
+  .leaflet-control-zoom a{background:#fff!important;color:var(--ink)!important;border-color:var(--line)!important;width:30px!important;height:30px!important;line-height:28px!important;font-size:16px!important}
+
+  .pin{
+    width:26px;height:26px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);
+    background:var(--green);border:2.5px solid #FFFDF8;
+    box-shadow:0 4px 12px -4px rgba(34,30,26,.55);
+    display:flex;align-items:center;justify-content:center;transition:all .18s ease;
+  }
+  .pin i{transform:rotate(45deg);font-style:normal;font-size:10px;font-weight:800;color:#FFFDF8;letter-spacing:-.03em}
+  .pin.lineup{background:var(--terra);width:30px;height:30px}
+  .pin.live{background:var(--ink);width:24px;height:24px;border-style:dashed}
+  .pin.sel{transform:rotate(-45deg) scale(1.22);box-shadow:0 8px 20px -6px rgba(34,30,26,.6)}
+  .pin-wrap.sel::after{
+    content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;
+    border-radius:50%;border:2px solid rgba(194,96,60,.45);animation:pulse 1.9s ease-out infinite;
+  }
+  @keyframes pulse{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+
+  .map-hint{
+    position:absolute;left:14px;bottom:12px;z-index:500;display:flex;align-items:center;gap:6px;
+    background:rgba(255,253,248,.94);backdrop-filter:blur(6px);border:1px solid var(--line);
+    border-radius:999px;padding:6px 11px;font-size:10.5px;font-weight:600;color:var(--ink-soft);
+    box-shadow:var(--shadow);pointer-events:none;
+  }
+  .map-hint b{color:var(--terra);font-weight:800}
+  .lt-tip{
+    background:#FFFDF8!important;border:1px solid var(--line)!important;border-radius:10px!important;
+    color:var(--ink)!important;font-size:11.5px!important;font-weight:700!important;
+    box-shadow:var(--shadow)!important;padding:4px 8px!important;
+  }
+  .lt-tip::before{border-top-color:#FFFDF8!important}
+  .lt-tip span{color:var(--ink-soft)!important;font-weight:500!important;display:block;font-size:10px!important}
+
+  /* ---------- sheet ---------- */
+  .sheet{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:14px 16px 40px;background:var(--cream)}
+  @media(max-width:899px){ .app.has-sel .mapwrap{height:30dvh;transition:height .3s ease} }
+  .sheet::-webkit-scrollbar{width:0}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--r);
+    padding:18px;box-shadow:var(--shadow);animation:rise .32s cubic-bezier(.2,.7,.3,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .eyebrow{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--terra);text-transform:uppercase}
+  .badge{
+    display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.06em;
+    padding:3px 7px;border-radius:5px;background:var(--cream-2);color:var(--ink-soft);text-transform:uppercase;
+  }
+  .badge.ok{background:#E7EEE4;color:#37563C}
+  .badge.region{background:#F6EBDD;color:#8A5A2B}
+  .badge.sample{background:#E8EDF4;color:#3C5573}
+  .badge.live{background:#EFE9E2;color:#4B4238}
+
+  .c-name{margin:9px 0 0;font-size:20px;font-weight:800;letter-spacing:-.025em;line-height:1.28;word-break:keep-all;overflow-wrap:break-word}
+  .c-en{margin:4px 0 0;font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em}
+  .c-region{margin:10px 0 0;font-size:13px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:5px}
+  .c-region svg{flex:none}
+
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:16px 0 0;background:var(--line);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .stat{background:#FFFDF8;padding:10px 12px}
+  .stat dt{font-size:9.5px;font-weight:800;letter-spacing:.1em;color:#9A8F80;text-transform:uppercase;margin:0}
+  .stat dd{margin:3px 0 0;font-size:13px;font-weight:700;letter-spacing:-.01em;word-break:keep-all}
+  .stat.wide{grid-column:1/-1}
+
+  .notes{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+  .note{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:#F7EFE4;color:#8A5A2B;border:1px solid #EFDFC9}
+
+  .story{margin:16px 0 0;font-size:13.5px;line-height:1.72;color:#3D372F;word-break:keep-all}
+  .story::first-letter{font-weight:800}
+
+  .src{margin:16px 0 0;padding:12px 13px;background:var(--cream);border-radius:12px;border:1px dashed var(--line)}
+  .src .row{display:flex;gap:8px;font-size:11.5px;line-height:1.6;color:var(--ink-soft)}
+  .src .row + .row{margin-top:5px}
+  .src .k{flex:none;font-weight:800;color:#9A8F80;letter-spacing:.04em;font-size:10px;padding-top:2px;width:52px}
+  .src a{color:var(--terra);text-decoration:none;border-bottom:1px solid var(--terra-soft)}
+
+  .qr{margin:14px 0 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .qr code{
+    flex:1;min-width:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+    background:#F7F2E9;border:1px solid var(--line);border-radius:9px;padding:9px 10px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#4B4238;
+  }
+  .qr-note{margin:7px 0 0;font-size:10.5px;color:#A79C8D;line-height:1.55}
+  .copy{flex:none;font-size:11.5px;font-weight:800;padding:9px 13px;border-radius:9px;background:var(--ink);color:#FFF8EF}
+  .copy.done{background:var(--green)}
+
+  /* lineup quick picks */
+  .quick{margin-top:16px}
+  .quick h3{margin:0 0 9px;font-size:10.5px;font-weight:800;letter-spacing:.14em;color:#9A8F80;text-transform:uppercase}
+  .qrow{display:flex;gap:9px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .qrow::-webkit-scrollbar{display:none}
+  .qcard{
+    flex:none;width:118px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:10px 11px;box-shadow:var(--shadow);
+  }
+  .qcard.on{border-color:var(--terra);box-shadow:0 0 0 2px rgba(194,96,60,.18)}
+  .qcard .qtop{display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:800;letter-spacing:.08em;color:var(--terra)}
+  .qcard .qn{margin-top:5px;font-size:12.5px;font-weight:800;line-height:1.35;letter-spacing:-.01em}
+  .qcard .qm{margin-top:4px;font-size:10.5px;color:var(--ink-soft)}
+
+  /* results list */
+  .results{margin:0}
+  .res-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .res-head h2{margin:0;font-size:15px;font-weight:800;letter-spacing:-.02em}
+  .res-head span{font-size:11.5px;color:var(--ink-soft)}
+  .res{display:flex;width:100%;text-align:left;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+  .res.on{border-color:var(--terra);box-shadow:0 0 0 2px rgba(194,96,60,.16)}
+  .res .dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:none}
+  .res .rn{display:block;font-size:13.5px;font-weight:800;letter-spacing:-.01em}
+  .res .rm{display:block;font-size:11px;color:var(--ink-soft);margin-top:2px}
+  .res .rt{display:block;font-size:10.5px;font-weight:800;color:var(--terra);margin-top:3px;letter-spacing:.02em}
+
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center}
+  .empty h3{margin:0 0 6px;font-size:14.5px;font-weight:800}
+  .empty p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.65}
+  .empty .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px}
+  .empty .tags button{font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:999px;background:var(--cream-2);color:var(--ink-soft)}
+
+  .spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--terra);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  .foot{margin-top:22px;font-size:10.5px;line-height:1.7;color:#A79C8D;text-align:center}
+  .foot b{color:#8A8074;font-weight:700}
+
+  /* ---------- desktop ---------- */
+  @media(min-width:900px){
+    .app{
+      display:grid;height:100dvh;
+      grid-template-columns:minmax(390px,430px) 1fr;
+      grid-template-rows:auto auto 1fr;
+      grid-template-areas:"head map" "chips map" "sheet map";
+    }
+    .head{grid-area:head;padding:26px 26px 14px}
+    .chips{grid-area:chips;padding:14px 26px 14px}
+    .sheet{grid-area:sheet;padding:16px 26px 40px}
+    .mapwrap{grid-area:map;height:auto;min-height:0;border-left:1px solid var(--line)}
+    .lede{font-size:25px}
+    .card{padding:20px}
+    .c-name{font-size:22px}
+    .sheet{border-right:1px solid var(--line)}
+  }
+  @media(max-width:400px){
+    .lede{font-size:20px}
+    .stat dd{font-size:12.5px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="head">
+    <div class="brand">
+      <svg class="bean" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <ellipse cx="12" cy="12" rx="7.4" ry="10" transform="rotate(35 12 12)" fill="#C2603C"/>
+        <path d="M7.4 16.6C10.6 14.4 11 9.6 16.6 7.4" stroke="#FBF7F0" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-txt">KRUMBLE ROASTERS <span>·</span> ORIGIN MAP</div>
+    </div>
+    <p class="lede">한 잔이 시작된 곳<em>.</em>
+      <small>마시거나 사 간 원두의 산지·농장을 지도에서 만나보세요.</small>
+    </p>
+
+    <form class="search" id="searchForm" autocomplete="off">
+      <div class="search-box">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" enterkeyhint="search" placeholder="원두·산지·농장·컵노트 검색" aria-label="커피 검색" />
+        <button class="go" type="submit">검색</button>
+      </div>
+      <div class="sugg" id="sugg" role="listbox" aria-label="검색 제안"></div>
+    </form>
+  </header>
+
+  <div class="chips" id="chips" role="tablist" aria-label="산지 필터"></div>
+
+  <div class="mapwrap">
+    <div id="map" aria-label="커피 산지 지도"></div>
+    <div class="map-hint">
+      <span class="badge lineup" style="background:#C2603C;color:#fff;padding:2px 6px;font-size:9px">LINEUP</span>
+      크럼블 라인업 · <b>핀</b>을 눌러보세요
+    </div>
+  </div>
+
+  <main class="sheet" id="sheet"></main>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* =========================================================
+   KRUMBLE ROASTERS · ORIGIN MAP  (prototype v0.1)
+   - tier "lineup" : 실제 구매한 생두 (공급사 페이지·구매 기록 기반)
+   - tier "origin" : 내장 산지 DB (지역 단위 좌표)
+   - tier "farm"   : 확인된 개별 농장
+   - tier "live"   : Nominatim 실시간 지오코딩 결과
+   ========================================================= */
+
+const BASE_URL = location.origin + location.pathname;
+
+/* ---------- 1. 크럼블 라인업 (실제 구매 생두) ---------- */
+const LINEUP = [
+  {
+    id: "el-diamante",
+    ko: "페루 엘 디아만테 게이샤",
+    en: "Peru Cajamarca El Diamante Geisha Washed",
+    country: "페루", countryEn: "Peru",
+    region: "카하마르카 · 산이그나시오 (San Ignacio)",
+    farm: "엘 디아만테 마을 소농 (El Diamante, San José de Lourdes)",
+    producer: "엘 디아만테 소농 — 현지 유통 표기 Faustino Flores",
+    alt: "1,700~1,800m",
+    variety: "게이샤 (Geisha)",
+    process: "워시드 (Fully Washed)",
+    notes: ["자스민", "오렌지 블로섬", "만다린", "흑설탕", "베르가못"],
+    story: "페루 북부 카하마르카의 산이그나시오, 에콰도르 국경 가까운 엘 디아만테 마을에서 자란 게이샤입니다. 안데스의 차고 습한 기후가 체리를 천천히 익혀 꽃향과 밝은 시트러스 산미를 남깁니다. 크럼블로스터스가 2026년 11월 콤파스커피에서 들여온 하우스 게이샤예요.",
+    lat: -4.9867, lon: -78.9253,
+    tier: "lineup", confidence: "ok", confidenceLabel: "농장 확인",
+    purchase: { supplier: "콤파스커피", date: "2026-11-16", memo: "네이버페이 주문 · 진공포장 출고" },
+    source: { label: "콤파스커피 상품 페이지", url: "https://compasscoffee.kr/product/PE_Diamante_Geisha" },
+    aliases: ["엘디아만테", "디아만테", "diamante", "카하마르카", "cajamarca", "산이그나시오", "san ignacio", "게이샤", "게샤", "geisha", "페루"]
+  },
+  {
+    id: "santa-felisa-2722",
+    ko: "과테말라 산타펠리사 게샤 2722 더블 소크",
+    en: "Guatemala Santa Felisa Gesha 2722 Fully Washed Double Soak 1600",
+    country: "과테말라", countryEn: "Guatemala",
+    region: "아카테낭고 밸리 (Acatenango, Chimaltenango)",
+    farm: "핀카 산타펠리사 (Finca Santa Felisa)",
+    producer: "아나베야 · 안토니오 메네세스 (4세대)",
+    alt: "1,600m (농장 1,520~1,900m)",
+    variety: "게샤 2722 (Gesha T2722)",
+    process: "풀리 워시드 더블 소크 (Fully Washed Double Soak)",
+    notes: ["베르가못", "자스민", "복숭아", "텐저린", "꿀"],
+    story: "푸에고 화산 아래 아카테낭고 밸리에서 1902년부터 이어온 농장입니다. 케냐식 이중 침지(더블 소크)로 게샤의 섬세한 꽃향과 투명한 단맛을 끌어올린 마이크로랏으로, 2017·2019 코리아·과테말라 COE에서 1위를 거둔 농장이기도 합니다. 세웅지씨를 통해 2026년 11월 입고된 뉴크롭입니다.",
+    lat: 14.5688, lon: -90.9472,
+    tier: "lineup", confidence: "ok", confidenceLabel: "농장 확인",
+    purchase: { supplier: "세웅지씨 (FIND MY GREEN COFFEE)", date: "2026-11-20", memo: "2026 뉴크롭 · 세웅지씨 직입고" },
+    source: { label: "세웅지씨 생두 정보", url: "https://www.sewoonggc.com/" },
+    aliases: ["산타펠리사", "santa felisa", "아카테낭고", "acatenango", "2722", "게샤", "게이샤", "geisha", "더블소크", "더블 쇽", "과테말라", "메네세스"]
+  },
+  {
+    id: "peru-cusco-flores",
+    ko: "페루 쿠스코 페르디도 포르 라스 플로레스",
+    en: "Peru Cusco Perdido por las Flores Inca Geisha / SL9 Washed",
+    country: "페루", countryEn: "Peru",
+    region: "쿠스코 (Cusco) · 안데스 고산",
+    farm: "‘꽃길에서 길을 잃다’ — 트레이더 스페셜 랏 (농장·생산자 비공개)",
+    producer: "비공개 (수입사 트레이더 랏)",
+    alt: "1,900~2,400m",
+    variety: "잉카 게이샤 / SL9",
+    process: "워시드 (펄핑 후 밀도 선별 · 24~36시간 발효)",
+    notes: ["베르가못", "망고스틴", "자몽", "꿀", "얼그레이"],
+    story: "쿠스코 안데스의 1,900m 이상 고지대에서 온 게이샤입니다. 이름 그대로 ‘향기로운 꽃의 길’처럼 은은한 꽃향이 길게 이어지고, 맑고 투명한 질감이 특징이에요. 2026년 9월 베르데 트레이드에서 1kg을 들여왔고, 지금은 그 스토어가 운영을 멈춰 재구매가 어렵습니다.",
+    lat: -12.8634, lon: -72.6930,
+    tier: "lineup", confidence: "region", confidenceLabel: "산지 단위 좌표",
+    purchase: { supplier: "베르데 트레이드 (현재 운영 중지)", date: "2026-09-13", memo: "구매확정 · 입고 완료" },
+    source: { label: "베르데트레이드 상품 정보", url: "https://greenbean.space/beans/e72d4382-232b-4a28-9f6a-da4e1651f2e8" },
+    aliases: ["페르디도", "perdido", "플로레스", "flores", "쿠스코", "cusco", "잉카게이샤", "sl9", "게이샤", "게샤", "geisha", "페루"]
+  }
+];
+
+/* ---------- 2. 내장 산지·농장 DB ---------- */
+const ORIGINS = [
+  /* 에티오피아 */
+  {id:"et-yirgacheffe",ko:"에티오피아 예가체프",en:"Ethiopia Yirgacheffe",country:"에티오피아",countryEn:"Ethiopia",region:"게데오 · 예가체프 (Yirgacheffe)",farm:"예가체프 커피 재배지대",producer:"소농 조합",alt:"1,800~2,200m",variety:"재래종 (Heirloom)",process:"워시드 · 내추럴",notes:["자스민","베르가못","레몬","홍차"],story:"커피의 고향 에티오피아 남부, 게데오 지대의 대표 산지. 꽃향과 시트러스가 또렷한 ‘홍차 같은’ 커피로 스페셜티의 기준이 된 이름입니다.",lat:6.1529,lon:38.2023,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["예가체프","yirgacheffe","yirga","이르가체프","게데오","gedeo","에티오피아"]},
+  {id:"et-gedeb",ko:"에티오피아 게데브 워카",en:"Ethiopia Gedeb Worka Chelbesa",country:"에티오피아",countryEn:"Ethiopia",region:"게데오 · 게데브 (Gedeb)",farm:"워카 첼베사 (Worka Chelbesa)",producer:"소농 · 워싱스테이션",alt:"1,900~2,100m",variety:"재래종",process:"워시드 · 내추럴",notes:["복숭아","자스민","꿀","시트러스"],story:"예가체프 남쪽 게데브의 워싱스테이션이 만드는 랏. 고지대 재래종 특유의 화사한 꽃향과 둥근 단맛이 살아 있습니다.",lat:5.9167,lon:38.25,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["게데브","gedeb","워카","worka","첼베사","chelbesa","에티오피아"]},
+  {id:"et-bensa",ko:"에티오피아 시다마 벤사",en:"Ethiopia Sidama Bensa",country:"에티오피아",countryEn:"Ethiopia",region:"시다마 · 벤사 (Bensa)",farm:"벤사 · 봄베 일대",producer:"소농 조합",alt:"1,900~2,200m",variety:"재래종 (74158 등)",process:"내추럴 · 워시드",notes:["블루베리","라즈베리","다크초콜릿","와인"],story:"시다마의 벤사는 요즘 에티오피아에서 가장 주목받는 산지입니다. 베리류의 진한 단맛과 산미가 매력적이에요.",lat:6.5138,lon:38.8317,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["시다마","sidama","벤사","bensa","봄베","bombe","에티오피아"]},
+  {id:"et-guji",ko:"에티오피아 구지 함벨라",en:"Ethiopia Guji Hambela",country:"에티오피아",countryEn:"Ethiopia",region:"오로미아 · 구지 (Guji)",farm:"함벨라 와메나 (Hambela Wamena)",producer:"소농 조합",alt:"1,900~2,300m",variety:"재래종",process:"내추럴 · 워시드",notes:["블루베리","살구","홍차","꿀"],story:"구지 지대의 함벨라는 예가체프와 시다마 사이, 해발 2,000m 안팎의 숲 그늘에서 자란 커피. 과일 향이 풍부하면서 컵이 깨끗합니다.",lat:5.9234,lon:38.4932,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["구지","guji","함벨라","hambela","와메나","wamena","에티오피아"]},
+  {id:"et-limu",ko:"에티오피아 림무",en:"Ethiopia Limu",country:"에티오피아",countryEn:"Ethiopia",region:"오로미아 · 림무 (Limu)",farm:"림무 커피 재배지대",producer:"소농 조합",alt:"1,500~1,900m",variety:"재래종",process:"워시드",notes:["시트러스","넛츠","캐러멜","와인"],story:"에티오피아 서남부 림무는 워시드 커피의 균형이 좋기로 유명합니다. 산미가 부드럽고 견과·캐러멜 단맛이 안정적이에요.",lat:8.1,lon:36.9,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["림무","limu","에티오피아"]},
+  {id:"et-harar",ko:"에티오피아 하라르",en:"Ethiopia Harar",country:"에티오피아",countryEn:"Ethiopia",region:"하라르 (Harar)",farm:"하라르 고원",producer:"소농",alt:"1,500~2,100m",variety:"재래종",process:"내추럴 (전통 건조)",notes:["블루베리","초콜릿","와인","스파이스"],story:"동부 고원의 오래된 산지. 통건조 내추럴 특유의 진한 베리향과 와인 같은 무게감이 있습니다.",lat:9.31,lon:42.12,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["하라르","harar","하라","에티오피아"]},
+
+  /* 케냐 */
+  {id:"ke-nyeri",ko:"케냐 니에리",en:"Kenya Nyeri",country:"케냐",countryEn:"Kenya",region:"니에리 (Nyeri) · 기차티니",farm:"기차티니 팩토리 (Gichathaini) 일대",producer:"소농 협동조합",alt:"1,700~1,900m",variety:"SL28 · SL34",process:"워시드 (이중 발효)",notes:["블랙커런트","자몽","토마토","흑설탕"],story:"케냐 커피의 심장 니에리. SL28·SL34 품종과 이중 발효 워시드가 만드는 강렬한 베리 산미와 깨끗한 단맛이 특징입니다.",lat:-0.42,lon:36.95,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["니에리","nyeri","기차티니","gichathaini","케냐"]},
+  {id:"ke-kirinyaga",ko:"케냐 키리냐가",en:"Kenya Kirinyaga",country:"케냐",countryEn:"Kenya",region:"키리냐가 (Kirinyaga)",farm:"케냐산 남쪽 사면",producer:"소농 협동조합",alt:"1,600~1,900m",variety:"SL28 · SL34 · 루이루11",process:"워시드",notes:["베르가못","블랙커런트","흑설탕","자몽"],story:"케냐산(키리냐가) 남쪽 사면의 산지. 화산 토양과 높은 고도 덕에 산미가 또렷하고 컵이 매우 깨끗합니다.",lat:-0.4689,lon:37.3028,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["키리냐가","kirinyaga","케냐"]},
+  {id:"ke-muranga",ko:"케냐 무랑가",en:"Kenya Murang'a",country:"케냐",countryEn:"Kenya",region:"무랑가 (Murang'a)",farm:"아베르다레 산맥 동쪽",producer:"소농 협동조합",alt:"1,600~1,850m",variety:"SL28 · SL34 · 루이루11",process:"워시드",notes:["블랙커런트","오렌지","캐러멜"],story:"아베르다레 산맥 동쪽 사면의 전통 산지. 니에리보다 한 결 부드러운 질감에 시트러스 단맛이 잘 올라옵니다.",lat:-0.72,lon:37.15,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["무랑가","muranga","케냐"]},
+  {id:"ke-kiambu",ko:"케냐 키암부",en:"Kenya Kiambu",country:"케냐",countryEn:"Kenya",region:"키암부 (Kiambu)",farm:"나이로비 북쪽 고원",producer:"소농 협동조합",alt:"1,600~1,900m",variety:"SL28 · 루이루11",process:"워시드",notes:["블랙커런트","자몽","꿀"],story:"수도 나이로비 바로 북쪽의 산지. 규모는 작지만 컵은 케냐 특유의 선명한 산미를 그대로 보여줍니다.",lat:-1.17,lon:36.83,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["키암부","kiambu","케냐"]},
+
+  /* 콜롬비아 */
+  {id:"co-huila",ko:"콜롬비아 후일라",en:"Colombia Huila",country:"콜롬비아",countryEn:"Colombia",region:"후일라 · 피탈리토 (Pitalito)",farm:"후일라 남부 소농",producer:"소농",alt:"1,600~1,900m",variety:"카투라 · 카스티요 · 핑크 버번",process:"워시드",notes:["레드애플","카라멜","시트러스","초콜릿"],story:"콜롬비아 커피 생산의 절반 가까이가 모이는 후일라. 마그달레나 계곡의 화산 토양에서 나는 균형 잡힌 단맛의 커피입니다.",lat:1.8447,lon:-76.0457,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["후일라","huila","피탈리토","pitalito","콜롬비아"]},
+  {id:"co-cauca",ko:"콜롬비아 카우카",en:"Colombia Cauca",country:"콜롬비아",countryEn:"Colombia",region:"카우카 · 피엔다모 (Piendamó)",farm:"핀카 엘 파라이소 일대 (Finca El Paraíso)",producer:"디에고 베르무데스",alt:"1,700~2,000m",variety:"핑크 버번 · 카투라",process:"워시드 · 무산소 발효",notes:["라즈베리","리치","꽃","캐러멜"],story:"콜롬비아 남서부 카우카는 실험적 발효로 유명한 산지. 엘 파라이소 농장의 더블 무산소 랏이 세계 대회를 휩쓴 뒤로 ‘카우카 = 향신료처럼 진한 과일’이라는 이미지가 굳었습니다.",lat:2.6404,lon:-76.5326,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["카우카","cauca","피엔다모","piendamo","엘파라이소","el paraiso","콜롬비아"]},
+  {id:"co-narino",ko:"콜롬비아 나리뇨",en:"Colombia Nariño",country:"콜롬비아",countryEn:"Colombia",region:"나리뇨 · 라 우니온 (La Unión)",farm:"나리뇨 고산 소농",producer:"소농",alt:"1,800~2,200m",variety:"카투라 · 카스티요",process:"워시드",notes:["체리","초콜릿","시트러스"],story:"에콰도르 국경의 고산 지대. 낮은 기온 덕에 체리가 천천히 익어 밀도 높고 산미가 맑은 커피가 됩니다.",lat:1.60,lon:-77.13,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["나리뇨","narino","라우니온","la union","콜롬비아"]},
+  {id:"co-quindio",ko:"콜롬비아 킨디오",en:"Colombia Quindío",country:"콜롬비아",countryEn:"Colombia",region:"킨디오 · 아르메니아 (Armenia)",farm:"커피 문화 경관 지대",producer:"소농",alt:"1,500~1,900m",variety:"카투라 · 카스티요",process:"워시드",notes:["오렌지","카라멜","아몬드"],story:"콜롬비아 커피축제의 고장. 완만한 구릉의 커피 문화 경관이 유네스코 세계유산으로 등재된 지역입니다.",lat:4.53,lon:-75.68,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["킨디오","quindio","아르메니아","armenia","콜롬비아"]},
+
+  /* 과테말라 */
+  {id:"gt-antigua",ko:"과테말라 안티구아",en:"Guatemala Antigua",country:"과테말라",countryEn:"Guatemala",region:"안티구아 (Antigua) · 사카테페케스",farm:"안티구아 계곡",producer:"소농 · 에스테이트",alt:"1,500~1,700m",variety:"버번 · 카투라",process:"워시드",notes:["다크초콜릿","오렌지","스파이스"],story:"아구아·푸에고·아카테낭고 세 화산에 둘러싸인 계곡. 화산재 토양과 뚜렷한 일교차가 초콜릿 같은 단맛을 만듭니다.",lat:14.556,lon:-90.733,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["안티구아","antigua","과테말라"]},
+  {id:"gt-injerto",ko:"과테말라 엘 인헤르또",en:"Guatemala El Injerto",country:"과테말라",countryEn:"Guatemala",region:"우에우에테낭고 · 라 리베르타드",farm:"핀카 엘 인헤르또 (Finca El Injerto)",producer:"Arturo Aguirre 에스코바르",alt:"1,463~1,981m",variety:"게이샤 · 버번",process:"워시드",notes:["플로럴","살구","레몬그라스","파파야"],story:"COE 최다 우승 농장 중 하나. 1900년대부터 이어진 우에우에테낭고의 명문으로, 게이샤 랏이 특히 유명합니다.",lat:15.52,lon:-91.90,tier:"farm",confidence:"ok",confidenceLabel:"농장 확인",aliases:["엘인헤르또","injerto","우에우에테낭고","huehuetenango","라리베르타드","과테말라"]},
+  {id:"gt-huehue",ko:"과테말라 우에우에테낭고",en:"Guatemala Huehuetenango",country:"과테말라",countryEn:"Guatemala",region:"우에우에테낭고 (Huehuetenango)",farm:"쿠치야마테코 산맥",producer:"소농",alt:"1,500~1,900m",variety:"버번 · 카투라 · 카투아이",process:"워시드",notes:["오렌지","카라멜","사과"],story:"멕시코 국경의 높은 산지. 과테말라에서 가장 높은 재배 지대를 품고 있어 밝은 산미와 과일향이 살아 있습니다.",lat:15.3196,lon:-91.4702,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["우에우에테낭고","huehuetenango","과테말라"]},
+
+  /* 코스타리카 */
+  {id:"cr-tarrazu",ko:"코스타리카 따라주",en:"Costa Rica Tarrazú",country:"코스타리카",countryEn:"Costa Rica",region:"산호세 · 따라주 (Tarrazú)",farm:"따라주 고산지",producer:"소농 · 마이크로밀",alt:"1,200~1,900m",variety:"카투라 · 카투아이",process:"워시드 · 허니",notes:["오렌지","캐러멜","초콜릿","꿀"],story:"코스타리카를 대표하는 산지. 마이크로밀 문화가 발달해 농장 단위의 개성이 뚜렷한 커피가 나옵니다.",lat:9.5828,lon:-84.0659,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["따라주","타라주","tarrazu","코스타리카"]},
+  {id:"cr-naranjo",ko:"코스타리카 나란호",en:"Costa Rica Naranjo",country:"코스타리카",countryEn:"Costa Rica",region:"알라후엘라 · 나란호 (Naranjo)",farm:"헤르바수 마이크로밀 (Herbazú)",producer:"소농 협동조합",alt:"1,200~1,600m",variety:"카투라 · 카투아이",process:"허니 · 워시드",notes:["자몽","꿀","아몬드"],story:"알라후엘라 주의 커피 마을. 허니 프로세스로 단맛을 살린 랏이 많고, 마일드한 산미가 편안합니다.",lat:10.1055,lon:-84.3995,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["나란호","naranjo","알라후엘라","헤르바수","herbazu","코스타리카"]},
+
+  /* 파나마 */
+  {id:"pa-esmeralda",ko:"파나마 에스메랄다 게이샤",en:"Panama Boquete Hacienda La Esmeralda Geisha",country:"파나마",countryEn:"Panama",region:"치리키 · 보케테 (Boquete)",farm:"아시엔다 라 에스메랄다 (Hacienda La Esmeralda)",producer:"피터슨 패밀리",alt:"1,600~1,800m",variety:"게이샤 (T2722)",process:"워시드 · 내추럴",notes:["자스민","베르가못","패션프루트","레몬"],story:"2004년 베스트 오브 파나마에서 게이샤를 세계 무대에 올린 농장. 바루 화산 사면의 안개와 미세 기후가 ‘게이샤의 정답’ 같은 향을 만듭니다.",lat:8.7980,lon:-82.4480,tier:"farm",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["에스메랄다","esmeralda","보케테","boquete","파나마","게이샤","게샤","geisha"]},
+  {id:"pa-volcan",ko:"파나마 볼칸 · 카르데라",en:"Panama Volcán / Candela",country:"파나마",countryEn:"Panama",region:"치리키 · 볼칸 (Volcán)",farm:"바루 화산 사면",producer:"소농 · 에스테이트",alt:"1,500~1,900m",variety:"게이샤 · 카투라",process:"워시드 · 내추럴",notes:["꽃","시트러스","꿀","열대과일"],story:"보케테 옆 볼칸 지역은 파나마 게이샤의 또 다른 축. 고도가 높고 밤이 서늘해 향이 길게 남습니다.",lat:8.78,lon:-82.63,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["볼칸","volcan","카르데라","candela","파나마","게이샤","게샤"]},
+
+  /* 브라질 */
+  {id:"br-cerrado",ko:"브라질 세하도",en:"Brazil Cerrado",country:"브라질",countryEn:"Brazil",region:"미나스제라이스 · 세하도 (Cerrado)",farm:"파트로시니우 일대",producer:"대농 · 코퍼리",alt:"900~1,200m",variety:"카투아이 · 카투라",process:"내추럴 · 펄프드 내추럴",notes:["헤이즐넛","캐러멜","다크초콜릿"],story:"브라질 생산의 중심지. 낮은 산미와 진한 견과·초콜릿 단맛으로 에스프레소 블렌드의 뼈대가 되는 커피입니다.",lat:-18.9408,lon:-46.9927,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["세하도","cerrado","브라질","파트로시니우","patrocinio"]},
+  {id:"br-suldeminas",ko:"브라질 술지미나스",en:"Brazil Sul de Minas",country:"브라질",countryEn:"Brazil",region:"미나스제라이스 · 술지미나스",farm:"바징야 일대",producer:"중소농",alt:"900~1,200m",variety:"카투아이 · 카투라",process:"내추럴 · 펄프드 내추럴",notes:["아몬드","브라운슈가","오렌지"],story:"브라질 남부 미나스. 세하도보다 산미가 조금 살아 있어 필터로도 부담 없는 단맛을 냅니다.",lat:-21.55,lon:-45.43,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["술지미나스","sul de minas","미나스","브라질"]},
+  {id:"br-mogiana",ko:"브라질 모지아나",en:"Brazil Mogiana",country:"브라질",countryEn:"Brazil",region:"상파울루 · 모지아나 (Mogiana)",farm:"프랑카 일대",producer:"중소농",alt:"900~1,200m",variety:"카투아이 · 문도노보",process:"내추럴",notes:["밀크초콜릿","피넛","캐러멜"],story:"상파울루주 북동쪽의 오래된 커피 벨트. 부드러운 초콜릿 단맛이 강점입니다.",lat:-20.54,lon:-47.40,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["모지아나","mogiana","프랑카","franca","브라질"]},
+
+  /* 아시아 · 태평양 */
+  {id:"id-lintong",ko:"인도네시아 만델링 (수마트라 린통)",en:"Indonesia Sumatra Lintong / Mandheling",country:"인도네시아",countryEn:"Indonesia",region:"북수마트라 · 린통 (Lintong)",farm:"토바 호수 남서쪽 고원",producer:"소농",alt:"1,200~1,600m",variety:"아티카 · 티피카",process:"웻 폴리시드 (젖은 상태로 파치먼트 제거)",notes:["허브","삼나무","다크초콜릿","흙"],story:"‘만델링’은 수마트라 린통 지역 커피의 통칭입니다. 습한 기후와 웻 폴리시드 가공이 만드는 묵직한 바디와 허브향이 특징이에요.",lat:1.7177,lon:99.1566,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["만델링","mandheling","린통","lintong","수마트라","sumatra","인도네시아"]},
+  {id:"id-gayo",ko:"인도네시아 가요",en:"Indonesia Gayo",country:"인도네시아",countryEn:"Indonesia",region:"아체 · 가요 고원 (Takengon)",farm:"가요 고원",producer:"소농 협동조합",alt:"1,200~1,700m",variety:"아티카 · 티피카",process:"웻 폴리시드 · 허니",notes:["시나몬","오렌지","허브"],story:"수마트라 최북단 아체의 고원. 린통보다 산미와 향이 한 결 밝고 깨끗한 커피가 나옵니다.",lat:4.6230,lon:96.8489,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["가요","gayo","아체","aceh","타켄공","인도네시아"]},
+  {id:"id-java",ko:"인도네시아 자바 이젠",en:"Indonesia Java Ijen",country:"인도네시아",countryEn:"Indonesia",region:"동자바 · 이젠 화산",farm:"이젠 고원",producer:"에스테이트 · 소농",alt:"1,200~1,600m",variety:"티피카 · 카투라",process:"워시드",notes:["넛츠","코코아","시트러스"],story:"네덜란드 시대부터 이어진 자바의 커피. 화산 토양에서 나는 깔끔한 산미와 견과 단맛이 있습니다.",lat:-8.06,lon:114.24,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["자바","java","이젠","ijen","인도네시아"]},
+  {id:"id-bali",ko:"인도네시아 발리 킨타마니",en:"Indonesia Bali Kintamani",country:"인도네시아",countryEn:"Indonesia",region:"발리 · 킨타마니 (Kintamani)",farm:"바투르 화산 칼데라",producer:"수박 아비안 협동조합",alt:"1,200~1,600m",variety:"카티모르 · 티피카",process:"웻 폴리시드",notes:["시트러스","꽃","초콜릿"],story:"발리 북부 바투르 화산 칼데라의 커피. 감귤류와 꽃향이 섞인 부드러운 컵으로, 인도네시아 안에서도 개성이 분명합니다.",lat:-8.2495,lon:115.3482,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["발리","bali","킨타마니","kintamani","인도네시아"]},
+  {id:"in-chikmagalur",ko:"인도 치크마갈루르",en:"India Chikmagalur",country:"인도",countryEn:"India",region:"카르나타카 · 치크마갈루르",farm:"바바 부단 기리 (Baba Budan Giri)",producer:"소농 · 에스테이트",alt:"1,000~1,500m",variety:"SLN9 · 카투라 · 켄트",process:"워시드 · 내추럴",notes:["스파이스","캐러멜","시트러스"],story:"인도 커피의 발상지로 불리는 카르나타카 산지. 향신료 같은 뉘앙스와 둥근 단맛이 인도 커피의 표정입니다.",lat:13.318,lon:75.7739,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["치크마갈루르","chikmagalur","카르나타카","karnataka","인도"]},
+  {id:"vn-buonmathuot",ko:"베트남 부온마투옷",en:"Vietnam Buon Ma Thuot",country:"베트남",countryEn:"Vietnam",region:"닥락 · 부온마투옷",farm:"중부 고원 커피 벨트",producer:"소농",alt:"500~800m",variety:"로부스타 (카네포라)",process:"내추럴",notes:["견과","다크초콜릿","담배"],story:"세계 로부스타 생산의 중심. 진한 바디와 쌉싸름한 견과향으로 베트남식 연유 커피의 기본이 됩니다.",lat:12.6613,lon:108.0310,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["부온마투옷","buon ma thuot","닥락","베트남","로부스타"]},
+  {id:"cn-yunnan",ko:"중국 윈난 푸얼",en:"China Yunnan Pu'er",country:"중국",countryEn:"China",region:"윈난 · 푸얼 (Pu'er)",farm:"윈난 커피 벨트",producer:"소농",alt:"1,200~1,700m",variety:"카티모르 · 카투라",process:"워시드",notes:["넛츠","캐러멜","시트러스"],story:"차로 유명한 푸얼이 커피 산지로도 커지고 있습니다. 부드러운 단맛과 낮은 산미로 밀크 커피에도 잘 어울립니다.",lat:23.2949,lon:100.8784,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["윈난","yunnan","푸얼","puer","중국"]},
+  {id:"th-chiangmai",ko:"태국 치앙마이",en:"Thailand Chiang Mai",country:"태국",countryEn:"Thailand",region:"치앙마이 북부 산지",farm:"도이 창 · 도이 수텝 일대",producer:"산악 소농",alt:"1,100~1,500m",variety:"카투라 · 카티모르",process:"워시드 · 허니",notes:["플로럴","사과","꿀"],story:"예전 아편 재배지를 대체한 커피 산지. 요즘은 허니·내추럴 랏도 늘며 꽃향이 살아 있는 커피가 나옵니다.",lat:18.7883,lon:98.9859,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["치앙마이","chiang mai","태국"]},
+  {id:"pg-goroka",ko:"파푸아뉴기니 고로카",en:"Papua New Guinea Goroka",country:"파푸아뉴기니",countryEn:"Papua New Guinea",region:"이스턴 하이랜즈 · 고로카",farm:"고로카 고원",producer:"소농 · 에스테이트",alt:"1,500~1,900m",variety:"티피카 · 아루샤",process:"워시드",notes:["열대과일","시트러스","초콜릿"],story:"뉴기니 고원의 커피. 자메이카 블루마운틴과 같은 티피카 계열이 자라 열대과일향과 깨끗한 산미가 있습니다.",lat:-6.073,lon:145.3933,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["고로카","goroka","파푸아뉴기니","png"]},
+  {id:"ye-haraaz",ko:"예멘 하라즈",en:"Yemen Haraaz",country:"예멘",countryEn:"Yemen",region:"사나 · 하라즈 산지",farm:"하라즈 고원",producer:"소농",alt:"1,900~2,300m",variety:"티피카 계열 재래종",process:"내추럴 (전통 건조)",notes:["와인","건포도","스파이스","다크초콜릿"],story:"커피 무역이 시작된 땅. 건조한 고원의 전통 내추럴 가공이 와인 같은 발효향과 진한 단맛을 만듭니다.",lat:15.05,lon:43.72,tier:"origin",confidence:"region",confidenceLabel:"대략 좌표",aliases:["하라즈","haraaz","예멘","yemen"]},
+
+  /* 카리브 · 태평양 */
+  {id:"jm-bluemountain",ko:"자메이카 블루마운틴",en:"Jamaica Blue Mountain",country:"자메이카",countryEn:"Jamaica",region:"포트랜드 · 블루마운틴 (Portland)",farm:"블루마운틴 산지",producer:"소농 협동조합",alt:"1,000~1,700m",variety:"티피카 (Typica)",process:"워시드",notes:["밝은 산미","허브","초콜릿","아몬드"],story:"카리브해 블루마운틴 산지의 커피. 부드러운 바디에 은은한 허브와 견과 단맛, 온화한 산미로 오래 사람받아 온 이름입니다.",lat:18.05,lon:-76.55,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["자메이카","블루마운틴","blue mountain","jamaica","포트랜드"]},
+  {id:"us-kona",ko:"하와이 코나",en:"Hawaii Kona",country:"미국",countryEn:"United States",region:"하와이 · 코나 (Kona)",farm:"코나 커피 벨트",producer:"소농 · 에스테이트",alt:"300~800m",variety:"티피카 · 카투라",process:"워시드",notes:["헤이즐넛","캐러멜","시트러스","꽃"],story:"하와이섬 서쪽 화산 사면의 커피 벨트. 화산 토양과 해양성 기후가 부드러운 단맛과 온화한 산미를 만듭니다.",lat:19.55,lon:-155.87,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["하와이","코나","kona","hawaii"]},
+
+  /* 아프리카 */
+  {id:"rw-nyamasheke",ko:"르완다 니야마셰케",en:"Rwanda Nyamasheke",country:"르완다",countryEn:"Rwanda",region:"서부주 · 니야마셰케",farm:"키부 호수 서안",producer:"소농 · 워싱스테이션",alt:"1,600~1,900m",variety:"버번",process:"워시드",notes:["레드커런트","홍차","꿀"],story:"키부 호숫가의 안개 낀 구릉. 버번 특유의 붉은 과일 산미와 홍차 같은 여운이 깔끔하게 남습니다.",lat:-2.358,lon:29.1546,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["니야마셰케","nyamasheke","르완다","키부"]},
+  {id:"bi-kayanza",ko:"부룬디 카얀자",en:"Burundi Kayanza",country:"부룬디",countryEn:"Burundi",region:"카얀자 (Kayanza)",farm:"북부 고원",producer:"소농 · 워싱스테이션",alt:"1,700~1,900m",variety:"버번",process:"워시드",notes:["자두","초콜릿","시트러스"],story:"르완다와 이웃한 부룬디 북부. 버번의 둥근 단맛과 자두 같은 과일향이 안정적으로 나오는 산지입니다.",lat:-3.0215,lon:29.6458,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["카얀자","kayanza","부룬디"]},
+  {id:"tz-kilimanjaro",ko:"탄자니아 킬리만자로",en:"Tanzania Kilimanjaro",country:"탄자니아",countryEn:"Tanzania",region:"킬리만자로 · 모시",farm:"킬리만자로 남쪽 사면",producer:"소농 협동조합",alt:"1,400~1,800m",variety:"켄트 · 부르봉",process:"워시드",notes:["블랙커런트","오렌지","캐러멜"],story:"아프리카 최고봉의 남쪽 사면. 케냐와 닮은 선명한 산미에 부드러운 바디가 더해집니다.",lat:-3.3486,lon:37.3435,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["킬리만자로","kilimanjaro","모시","moshi","탄자니아"]},
+  {id:"tz-mbeya",ko:"탄자니아 음베야",en:"Tanzania Mbeya",country:"탄자니아",countryEn:"Tanzania",region:"남부 고원 · 음베야",farm:"남부 고원",producer:"소농",alt:"1,500~1,900m",variety:"켄트 · 부르번",process:"워시드",notes:["베리","초콜릿","시트러스"],story:"탄자니아 남부의 고원 산지. 최근 스페셜티 랏이 늘면서 주목받고 있습니다.",lat:-8.6131,lon:33.3342,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["음베야","mbeya","탄자니아"]},
+
+  /* 중남미 기타 */
+  {id:"hn-santabarbara",ko:"온두라스 산타바르바라",en:"Honduras Santa Bárbara",country:"온두라스",countryEn:"Honduras",region:"산타바르바라 (Santa Bárbara)",farm:"서부 고원",producer:"소농",alt:"1,200~1,700m",variety:"카투라 · 파라이네마",process:"워시드",notes:["오렌지","카라멜","코코아"],story:"온두라스 서부의 커피 산지. 부드러운 단맛과 오렌지 같은 산미가 균형을 이룹니다.",lat:14.9217,lon:-88.2364,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["산타바르바라","santa barbara","온두라스"]},
+  {id:"hn-copan",ko:"온두라스 코판",en:"Honduras Copán",country:"온두라스",countryEn:"Honduras",region:"코판 (Copán)",farm:"서부 국경 산지",producer:"소농",alt:"1,000~1,500m",variety:"카투라 · 버번",process:"워시드",notes:["초콜릿","오렌지","견과"],story:"마야 유적지로 유명한 코판 지역. 해발이 낮은 편이라 부드럽고 둥근 컵이 나옵니다.",lat:14.84,lon:-89.15,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["코판","copan","온두라스"]},
+  {id:"ni-matagalpa",ko:"니카라과 마타갈파",en:"Nicaragua Matagalpa",country:"니카라과",countryEn:"Nicaragua",region:"마타갈파 (Matagalpa)",farm:"북부 고원",producer:"소농",alt:"1,000~1,500m",variety:"카투라 · 부르봉",process:"워시드 · 허니",notes:["초콜릿","오렌지","캐러멜"],story:"니카라과 커피의 중심지. 진한 초콜릿 단맛과 부드러운 산미로 밀크 커피에도 잘 맞습니다.",lat:12.9,lon:-85.7,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["마타갈파","matagalpa","니카라과"]},
+  {id:"sv-santaana",ko:"엘살바도르 산타아나",en:"El Salvador Santa Ana · Apaneca-Ilamatepec",country:"엘살바도르",countryEn:"El Salvador",region:"산타아나 · 아파네카-일라마테펙",farm:"산타아나 화산 지대",producer:"소농 · 에스테이트",alt:"1,400~1,900m",variety:"버번 · 파카스",process:"워시드 · 허니",notes:["오렌지","꿀","초콜릿","살구"],story:"화산 지대의 버번 산지. 부드러운 산미와 꿀 같은 단맛이 엘살바도르 커피의 매력입니다.",lat:13.87,lon:-89.65,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["산타아나","santa ana","엘살바도르","아파네카","일라마테펙"]},
+  {id:"mx-chiapas",ko:"멕시코 치아파스",en:"Mexico Chiapas",country:"멕시코",countryEn:"Mexico",region:"치아파스 (Chiapas)",farm:"남부 고원",producer:"소농 협동조합",alt:"1,200~1,700m",variety:"타피카 · 부르봉",process:"워시드",notes:["밀크초콜릿","견과","시트러스"],story:"과테말라와 맞닿은 남부 산지. 부드러운 견과·초콜릿 단맛으로 편안하게 마시기 좋은 커피입니다.",lat:16.75,lon:-92.63,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["치아파스","chiapas","멕시코"]},
+  {id:"pe-jaen",ko:"페루 하엔 · 카하마르카",en:"Peru Jaén Cajamarca",country:"페루",countryEn:"Peru",region:"카하마르카 · 하엔 (Jaén)",farm:"북부 커피 벨트",producer:"소농",alt:"1,500~2,000m",variety:"카투라 · 버번 · 게이샤",process:"워시드",notes:["오렌지","카라멜","플로럴"],story:"페루 생산의 절반이 모이는 북부 산지. 2020년대 들어 게이샤와 실험적 발효 랏이 늘며 품질이 빠르게 올라왔습니다.",lat:-5.71,lon:-78.81,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["하엔","jaen","카하마르카","cajamarca","페루"]},
+  {id:"ec-loja",ko:"에콰도르 로하",en:"Ecuador Loja",country:"에콰도르",countryEn:"Ecuador",region:"로하 (Loja)",farm:"안데스 남부",producer:"소농",alt:"1,400~2,000m",variety:"티피카 · 카투라",process:"워시드",notes:["시트러스","꽃","꿀"],story:"에콰도르 남부 로하. 규모는 작지만 꽃향이 살아 있는 깨끗한 커피가 나오는 산지입니다.",lat:-3.99,lon:-79.20,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["로하","loja","에콰도르"]},
+  {id:"bo-caranavi",ko:"볼리비아 카라나비",en:"Bolivia Caranavi",country:"볼리비아",countryEn:"Bolivia",region:"라파스 · 카라나비 (Caranavi)",farm:"율룽가스 계곡",producer:"소농",alt:"1,300~1,800m",variety:"티피카 · 카투라",process:"워시드",notes:["초콜릿","오렌지","넛츠"],story:"볼리비아 커피의 거의 전부가 나오는 율룽가스 계곡. 부드럽고 달콤한 컵으로 물량이 적어 귀한 산지입니다.",lat:-15.6946,lon:-67.3921,tier:"origin",confidence:"region",confidenceLabel:"산지 단위 좌표",aliases:["카라나비","caranavi","볼리비아","율룽가스"]}
+];
+
+const ALL = [...LINEUP, ...ORIGINS];
+
+/* ---------- 3. 상태 ---------- */
+const state = {
+  filter: "all",        // "all" | "lineup" | country
+  selected: null,       // 선택된 item
+  results: null,        // 검색 결과 배열
+  livePin: null,
+  geocoding: false
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const sheetEl = $("#sheet");
+const sugEl = $("#sugg");
+const qEl = $("#q");
+
+const fmtNote = (n) => `<span class="note">${n}</span>`;
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ---------- 4. 지도 ---------- */
+const map = L.map("map", {
+  zoomControl: true,
+  attributionControl: true,
+  worldCopyJump: true,
+  minZoom: 2,
+  maxZoom: 16,
+  scrollWheelZoom: true
+}).setView([8, 20], 2);
+
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 16,
+  maxNativeZoom: 16,
+  attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+}).addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 16,
+  maxNativeZoom: 16,
+  pane: "overlayPane"
+}).addTo(map);
+
+const pinLayer = L.layerGroup().addTo(map);
+const markers = new Map(); // id -> marker
+
+function pinIcon(item, selected) {
+  const cls = ["pin"];
+  if (item.tier === "lineup") cls.push("lineup");
+  if (item.tier === "live") cls.push("live");
+  if (selected) cls.push("sel");
+  const label = item.tier === "lineup" ? "★" : (item.tier === "live" ? "?" : "•");
+  return L.divIcon({
+    className: "pin-wrap" + (selected ? " sel" : ""),
+    html: `<div class="${cls.join(" ")}"><i>${label}</i></div>`,
+    iconSize: item.tier === "lineup" ? [30, 30] : [26, 26],
+    iconAnchor: item.tier === "lineup" ? [15, 30] : [13, 26],
+    tooltipAnchor: [0, -24]
+  });
+}
+
+function visibleItems() {
+  if (state.results && state.results.length > 1) return state.results;
+  if (state.filter === "lineup") return LINEUP;
+  if (state.filter === "all") return ALL;
+  return ALL.filter((i) => i.country === state.filter);
+}
+
+function drawPins() {
+  pinLayer.clearLayers();
+  markers.clear();
+  const items = visibleItems();
+  const bounds = [];
+  items.forEach((item) => {
+    const isSel = state.selected && state.selected.id === item.id;
+    const m = L.marker([item.lat, item.lon], {
+      icon: pinIcon(item, isSel),
+      riseOnHover: true,
+      keyboard: true,
+      title: item.ko
+    });
+    m.bindTooltip(`<b>${esc(item.ko)}</b><span>${esc(item.region)}</span>`, {
+      direction: "top", className: "lt-tip", offset: [0, 0]
+    });
+    m.on("click", () => selectItem(item, { fly: true, source: "pin" }));
+    m.addTo(pinLayer);
+    markers.set(item.id, m);
+    bounds.push([item.lat, item.lon]);
+  });
+  if (state.livePin) {
+    const m = L.marker([state.livePin.lat, state.livePin.lon], { icon: pinIcon(state.livePin, true), title: state.livePin.ko });
+    m.bindTooltip(`<b>${esc(state.livePin.ko)}</b><span>실시간 검색 위치</span>`, { direction: "top", className: "lt-tip" });
+    m.on("click", () => selectItem(state.livePin, { fly: true, source: "pin" }));
+    m.addTo(pinLayer);
+    markers.set(state.livePin.id, m);
+    bounds.push([state.livePin.lat, state.livePin.lon]);
+  }
+  if (bounds.length && !state.selected) {
+    map.fitBounds(bounds, { padding: [42, 42], maxZoom: 5, animate: true });
+  }
+}
+
+function highlightPin() {
+  markers.forEach((m, id) => {
+    const item = [...visibleItems(), state.livePin].filter(Boolean).find((i) => i.id === id);
+    if (!item) return;
+    const sel = state.selected && state.selected.id === id;
+    m.setIcon(pinIcon(item, sel));
+  });
+}
+
+/* ---------- 5. 칩 ---------- */
+function countryCounts() {
+  const m = new Map();
+  LINEUP.forEach((i) => m.set(i.country, (m.get(i.country) || 0) + 1));
+  ORIGINS.forEach((i) => m.set(i.country, (m.get(i.country) || 0) + 1));
+  return [...m.entries()].sort((a, b) => b[1] - a[1]);
+}
+
+function renderChips() {
+  const chips = [];
+  chips.push(`<button class="chip star ${state.filter === "lineup" ? "on" : ""}" data-filter="lineup">★ 내 라인업 <span class="cnt">${LINEUP.length}</span></button>`);
+  chips.push(`<button class="chip ${state.filter === "all" ? "on" : ""}" data-filter="all">전체 산지 <span class="cnt">${ALL.length}</span></button>`);
+  countryCounts().forEach(([c, n]) => {
+    chips.push(`<button class="chip ${state.filter === c ? "on" : ""}" data-filter="${esc(c)}">${esc(c)} <span class="cnt">${n}</span></button>`);
+  });
+  $("#chips").innerHTML = chips.join("");
+  $("#chips").querySelectorAll(".chip").forEach((b) => {
+    b.onclick = () => {
+      state.filter = b.dataset.filter;
+      state.selected = null;
+      state.results = null;
+      document.querySelector(".app").classList.remove("has-sel");
+      setTimeout(() => map.invalidateSize(), 340);
+      renderChips();
+      drawPins();
+      renderSheet();
+      if (!state.selected) {
+        const pts = visibleItems().map((i) => [i.lat, i.lon]);
+        if (pts.length) map.fitBounds(pts, { padding: [50, 50], maxZoom: 5 });
+      }
+    };
+  });
+}
+
+/* ---------- 6. 검색 ---------- */
+function norm(s) {
+  return String(s || "").toLowerCase()
+    .replace(/[\s·・,\.\(\)\[\]\/\-_'’"“”]/g, "")
+    .replace(/게샤/g, "게이샤");
+}
+
+function haystack(item) {
+  return norm([
+    item.ko, item.en, item.country, item.countryEn, item.region,
+    item.farm, item.producer, item.alt, item.variety, item.process,
+    (item.notes || []).join(" "), (item.aliases || []).join(" "),
+    item.tier === "lineup" ? "라인업 크럼블" : ""
+  ].join(" "));
+}
+
+function scoreItem(item, query) {
+  const q = norm(query);
+  if (!q) return 0;
+  const tokens = q.split("+").filter(Boolean);
+  const hay = haystack(item);
+  // 모든 토큰이 어딘가에 있어야 후보 (공백 검색은 토큰 AND)
+  if (tokens.length > 1 && !tokens.every((t) => hay.includes(t))) return 0;
+  let score = 0;
+  const nameKo = norm(item.ko), nameEn = norm(item.en);
+  if (nameKo === q || nameEn === q) score += 200;
+  if (nameKo.startsWith(q) || nameEn.startsWith(q)) score += 120;
+  if (nameKo.includes(q) || nameEn.includes(q)) score += 90;
+  if (norm(item.farm).includes(q)) score += 70;
+  if (norm(item.region).includes(q)) score += 55;
+  if (norm((item.aliases || []).join(" ")).includes(q)) score += 45;
+  if (norm(item.country).includes(q) || norm(item.countryEn).includes(q)) score += 35;
+  if (norm(item.variety).includes(q) || norm(item.process).includes(q)) score += 25;
+  if (norm((item.notes || []).join(" ")).includes(q)) score += 22;
+  // 토큰 단위 가중
+  tokens.forEach((t) => {
+    if (nameKo.includes(t) || nameEn.includes(t)) score += 30;
+    else if (hay.includes(t)) score += 8;
+  });
+  if (score > 0 && item.tier === "lineup") score += 12;
+  return score;
+}
+
+function searchLocal(query) {
+  const q = String(query || "").trim();
+  if (!q) return [];
+  // 공백 검색은 AND로 처리하기 위해 "+" 로 이어 norm에서 공백 제거
+  const joined = q.split(/\s+/).join("+");
+  return ALL
+    .map((item) => ({ item, s: scoreItem(item, joined) }))
+    .filter((r) => r.s > 0)
+    .sort((a, b) => b.s - a.s)
+    .map((r) => r.item);
+}
+
+/* 한글 → 영문 지오코딩 키워드 (Nominatim 폴백용) */
+const KO2EN = {
+  "에티오피아":"Ethiopia","케냐":"Kenya","콜롬비아":"Colombia","과테말라":"Guatemala","파나마":"Panama",
+  "코스타리카":"Costa Rica","브라질":"Brazil","인도네시아":"Indonesia","베트남":"Vietnam","인도":"India",
+  "르완다":"Rwanda","부룬디":"Burundi","탄자니아":"Tanzania","온두라스":"Honduras","니카라과":"Nicaragua",
+  "엘살바도르":"El Salvador","멕시코":"Mexico","페루":"Peru","에콰도르":"Ecuador","볼리비아":"Bolivia",
+  "파푸아뉴기니":"Papua New Guinea","예멘":"Yemen","중국":"China","태국":"Thailand","우간다":"Uganda",
+  "말라위":"Malawi","잠비아":"Zambia","필리핀":"Philippines","대만":"Taiwan","하와이":"Hawaii","자메이카":"Jamaica",
+  "예가체프":"Yirgacheffe","이르가체프":"Yirgacheffe","구지":"Guji","시다마":"Sidama","시다모":"Sidamo",
+  "게데오":"Gedeo","게데브":"Gedeb","림무":"Limu","하라르":"Harar","짐마":"Jimma","벤사":"Bensa",
+  "후일라":"Huila","카우카":"Cauca","나리뇨":"Narino","킨디오":"Quindio","안티오키아":"Antioquia",
+  "산탄데르":"Santander","톨리마":"Tolima","안티구아":"Antigua","우에우에테낭고":"Huehuetenango",
+  "아카테낭고":"Acatenango","치말테낭고":"Chimaltenango","따라주":"Tarrazu","타라주":"Tarrazu",
+  "보케테":"Boquete","볼칸":"Volcan","세하도":"Cerrado","술지미나스":"Sul de Minas","모지아나":"Mogiana",
+  "만델링":"Mandheling","린통":"Lintong","가요":"Gayo","자바":"Java","킨타마니":"Kintamani","수마트라":"Sumatra",
+  "니에리":"Nyeri","키리냐가":"Kirinyaga","무랑가":"Muranga","키암부":"Kiambu","키시":"Kisii",
+  "치크마갈루르":"Chikmagalur","카르나타카":"Karnataka","부온마투옷":"Buon Ma Thuot","닥락":"Dak Lak",
+  "니야마셰케":"Nyamasheke","카얀자":"Kayanza","킬리만자로":"Kilimanjaro","음베야":"Mbeya",
+  "산타바르바라":"Santa Barbara","코판":"Copan","마타갈파":"Matagalpa","산타아나":"Santa Ana",
+  "치아파스":"Chiapas","카하마르카":"Cajamarca","산이그나시오":"San Ignacio","쿠스코":"Cusco",
+  "하엔":"Jaen","로하":"Loja","카라나비":"Caranavi","고로카":"Goroka","하라즈":"Haraaz",
+  "윈난":"Yunnan","푸얼":"Puer","치앙마이":"Chiang Mai","엘곤":"Elgon",
+  "농장":"farm","산":"mountain","게이샤":"Geisha","게샤":"Geisha","워시드":"washed","내추럴":"natural",
+  "허니":"honey","디카페인":"decaf","에스메랄다":"Esmeralda","엘인헤르또":"El Injerto",
+  "핀카":"Finca","아시엔다":"Hacienda","농원":"farm"
+};
+
+function toEnglish(query) {
+  let out = query;
+  Object.keys(KO2EN).sort((a, b) => b.length - a.length).forEach((k) => {
+    out = out.split(k).join(" " + KO2EN[k] + " ");
+  });
+  return out.replace(/\s+/g, " ").trim();
+}
+
+async function nominatimSearch(q) {
+  const url = "https://nominatim.openstreetmap.org/search?" + new URLSearchParams({
+    format: "jsonv2", limit: "5", "accept-language": "ko,en", q
+  });
+  const res = await fetch(url, { headers: { "Accept": "application/json" } });
+  if (!res.ok) throw new Error("nominatim " + res.status);
+  const arr = await res.json();
+  return (arr || []).map((r) => ({
+    name: r.name || (r.display_name || "").split(",")[0],
+    display_name: r.display_name,
+    lat: parseFloat(r.lat), lon: parseFloat(r.lon),
+    id: (r.osm_type || "x") + "-" + (r.osm_id || Math.random().toString(36).slice(2))
+  }));
+}
+
+async function photonSearch(q) {
+  const url = "https://photon.komoot.io/api/?" + new URLSearchParams({ q, limit: "5", lang: "ko" });
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("photon " + res.status);
+  const j = await res.json();
+  return (j.features || []).map((f) => {
+    const p = f.properties || {};
+    const c = (f.geometry && f.geometry.coordinates) || [0, 0];
+    const parts = [p.name, p.city || p.county || p.district, p.state, p.country].filter(Boolean);
+    return {
+      name: p.name || parts[0] || q,
+      display_name: parts.length ? parts.join(", ") : q,
+      lat: c[1], lon: c[0],
+      id: "ph-" + (p.osm_type || "x") + "-" + (p.osm_id || Math.random().toString(36).slice(2))
+    };
+  });
+}
+
+async function geocode(query) {
+  const en = toEnglish(query);
+  const tries = [
+    ["nominatim", en],
+    ["photon", en],
+    ["nominatim", en + " coffee farm"],
+    ["photon", en + " coffee"],
+    ["nominatim", query]
+  ];
+  for (const [kind, t] of tries) {
+    if (!t) continue;
+    try {
+      const arr = kind === "nominatim" ? await nominatimSearch(t) : await photonSearch(t);
+      if (arr && arr.length) return { hit: arr[0], all: arr, query: t, engine: kind };
+    } catch (e) { /* 다음 시도 */ }
+    await new Promise((r) => setTimeout(r, 700));
+  }
+  return null;
+}
+
+function liveItemFromGeo(hit, query, all) {
+  const parts = (hit.display_name || "").split(",").map((s) => s.trim()).filter(Boolean);
+  const country = parts[parts.length - 1] || "—";
+  const region = parts.slice(0, Math.max(1, parts.length - 1)).slice(-2).join(", ");
+  return {
+    id: "live-" + hit.id,
+    ko: query,
+    en: hit.name || parts[0] || query,
+    country, countryEn: country,
+    region: region || hit.display_name,
+    farm: hit.name || query,
+    producer: "—",
+    alt: "—",
+    variety: "—",
+    process: "—",
+    notes: [],
+    story: `OpenStreetMap에서 실시간으로 찾은 위치입니다. ${hit.display_name} 기준으로 지도에 표시했어요. 이 위치의 농장·품종·가공 정보는 아직 확인되지 않았습니다.`,
+    lat: hit.lat, lon: hit.lon,
+    tier: "live", confidence: "live", confidenceLabel: "실시간 지오코딩",
+    source: { label: "OpenStreetMap", url: "https://www.openstreetmap.org/?mlat=" + hit.lat + "&mlon=" + hit.lon + "#map=12/" + hit.lat + "/" + hit.lon },
+    aliases: [query],
+    alternatives: (all || []).slice(1, 4).map((h) => ({ name: h.display_name, lat: h.lat, lon: h.lon }))
+  };
+}
+
+async function runSearch(raw) {
+  const query = String(raw || "").trim();
+  if (!query) return;
+  hideSugg();
+  qEl.value = query;
+  const local = searchLocal(query);
+
+  if (local.length) {
+    state.results = local;
+    state.livePin = null;
+    if (local.length === 1) {
+      selectItem(local[0], { fly: true, source: "search" });
+      return;
+    }
+    // 여러 곳 → 결과 목록 + 모두 보이게
+    state.selected = null;
+    document.querySelector(".app").classList.remove("has-sel");
+    setTimeout(() => map.invalidateSize(), 340);
+    drawPins();
+    const pts = local.map((i) => [i.lat, i.lon]);
+    map.fitBounds(pts, { padding: [50, 50], maxZoom: 6 });
+    renderSheet();
+    return;
+  }
+
+  // 내장 DB에 없음 → Nominatim 실시간 지오코딩
+  state.results = null;
+  state.selected = null;
+  state.geocoding = true;
+  state.livePin = null;
+  renderSheet();
+  drawPins();
+
+  const geo = await geocode(query);
+  state.geocoding = false;
+
+  if (!geo) {
+    state.livePin = null;
+    renderSheet({ error: query });
+    drawPins();
+    return;
+  }
+  const live = liveItemFromGeo(geo.hit, query, geo.all);
+  state.livePin = live;
+  state.selected = live;
+  state.results = [live];
+  drawPins();
+  renderSheet();
+  map.flyTo([live.lat, live.lon], 9, { duration: 1.5 });
+  setURL({ coffee: null, q: query });
+}
+
+/* ---------- 7. 선택 & 카드 ---------- */
+function selectItem(item, opts = {}) {
+  state.selected = item;
+  state.results = state.results && state.results.length > 1 ? state.results : null;
+  if (item.tier !== "live") qEl.value = item.ko;
+  document.querySelector(".app").classList.add("has-sel");
+  setTimeout(() => map.invalidateSize(), 340);
+  highlightPin();
+  renderSheet();
+  if (opts.fly) map.flyTo([item.lat, item.lon], item.tier === "lineup" ? 8 : 7, { duration: 1.35 });
+  setURL({ coffee: item.tier === "live" ? null : item.id, q: item.tier === "live" ? item.ko : null });
+}
+
+function setURL({ coffee, q }) {
+  const url = new URL(location.href);
+  if (coffee) { url.searchParams.set("coffee", coffee); url.searchParams.delete("q"); }
+  else url.searchParams.delete("coffee");
+  if (q) { url.searchParams.set("q", q); } else if (q === null) url.searchParams.delete("q");
+  try { history.replaceState(null, "", url); } catch (e) {}
+}
+
+function badgeFor(item) {
+  if (item.tier === "live") return `<span class="badge live">LIVE · 실시간 검색</span>`;
+  if (item.tier === "lineup") return `<span class="badge ok">KRUMBLE LINEUP · ${esc(item.purchase ? item.purchase.date : "")}</span>`;
+  if (item.tier === "farm") return `<span class="badge region">대표 농장</span>`;
+  return `<span class="badge sample">대표 산지 · 예시 데이터</span>`;
+}
+
+function cardHTML(item) {
+  const rows = [];
+  if (item.tier === "live") {
+    rows.push(`<div class="stat wide"><dt>국가</dt><dd>${esc(item.country)}</dd></div>`);
+    rows.push(`<div class="stat wide"><dt>지역</dt><dd>${esc(item.region)}</dd></div>`);
+  } else {
+    if (item.farm) rows.push(`<div class="stat wide"><dt>농장</dt><dd>${esc(item.farm)}</dd></div>`);
+    if (item.producer) rows.push(`<div class="stat wide"><dt>생산자</dt><dd>${esc(item.producer)}</dd></div>`);
+    rows.push(`<div class="stat"><dt>고도</dt><dd>${esc(item.alt)}</dd></div>`);
+    rows.push(`<div class="stat"><dt>품종</dt><dd>${esc(item.variety)}</dd></div>`);
+    rows.push(`<div class="stat wide"><dt>가공방식</dt><dd>${esc(item.process)}</dd></div>`);
+  }
+
+  const srcRows = [];
+  if (item.source) srcRows.push(`<div class="row"><span class="k">출처</span><span><a href="${esc(item.source.url)}" target="_blank" rel="noopener">${esc(item.source.label)}</a></span></div>`);
+  if (item.purchase) srcRows.push(`<div class="row"><span class="k">입고</span><span>${esc(item.purchase.date)} · ${esc(item.purchase.supplier)}<br>${esc(item.purchase.memo || "")}</span></div>`);
+  srcRows.push(`<div class="row"><span class="k">확인 기준</span><span>${esc(item.confidenceLabel)}</span></div>`);
+
+  const qr = item.tier === "live" ? "" : `
+    <div class="qr">
+      <code id="qrlink">?coffee=${esc(item.id)}</code>
+      <button class="copy" id="copyBtn" type="button">링크 복사</button>
+    </div>
+    <p class="qr-note">매장 QR에 이 링크를 담으면 손님이 바로 이 카드를 열 수 있어요.</p>`;
+
+  const altList = item.alternatives && item.alternatives.length ? `
+    <div class="quick" style="margin-top:18px">
+      <h3>다른 검색 후보</h3>
+      <div class="qrow">
+        ${item.alternatives.map((a) => `<button class="qcard" type="button" data-alt="${esc(a.lat)},${esc(a.lon)}" style="width:190px"><div class="qn" style="margin-top:0">${esc(a.name.split(",")[0])}</div><div class="qm">${esc(a.name.split(",").slice(-2).join(",").trim())}</div></button>`).join("")}
+      </div>
+    </div>` : "";
+
+  return `
+  <article class="card">
+    ${badgeFor(item)}
+    <h1 class="c-name">${esc(item.ko)}</h1>
+    <p class="c-en">${esc(item.en)}</p>
+    <p class="c-region">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg>
+      ${esc(item.country)} · ${esc(item.region)}
+    </p>
+    <dl class="stats">${rows.join("")}</dl>
+    ${item.notes && item.notes.length ? `<div class="notes">${item.notes.map(fmtNote).join("")}</div>` : ""}
+    <p class="story">${esc(item.story)}</p>
+    <div class="src">${srcRows.join("")}</div>
+    ${qr}
+    ${altList}
+  </article>
+  <div class="quick">
+    <h3>크럼블 라인업</h3>
+    <div class="qrow">
+      ${LINEUP.map((l) => `
+        <button class="qcard ${state.selected && state.selected.id === l.id ? "on" : ""}" data-id="${esc(l.id)}" type="button">
+          <div class="qtop">★ ${esc(l.country)}</div>
+          <div class="qn">${esc(l.ko.replace("페루 ", "").replace("과테말라 ", ""))}</div>
+          <div class="qm">${esc(l.region.split("(")[0].trim())}</div>
+        </button>`).join("")}
+    </div>
+  </div>`;
+}
+
+function resultsHTML(list) {
+  return `
+    <div class="results">
+      <div class="res-head">
+        <h2>“${esc(qEl.value)}” 검색 결과 ${list.length}곳</h2>
+        <span>핀을 눌러도 됩니다</span>
+      </div>
+      ${list.map((i) => `
+        <button class="res" data-id="${esc(i.id)}" type="button">
+          <span class="dot" style="background:${i.tier === "lineup" ? "#C2603C" : "#2F4636"}"></span>
+          <span>
+            <span class="rn">${esc(i.ko)}</span>
+            <span class="rm">${esc(i.country)} · ${esc(i.region)}</span>
+            <span class="rt">${i.tier === "lineup" ? "★ KRUMBLE LINEUP" : esc(i.alt) + " · " + esc(i.variety)}</span>
+          </span>
+        </button>`).join("")}
+    </div>`;
+}
+
+function introHTML() {
+  return `
+  <article class="card">
+    <span class="badge ok">KRUMBLE ROASTERS · 2026</span>
+    <h1 class="c-name">지도 위의 한 잔</h1>
+    <p class="story">매장에서 마시거나 사 간 원두가 어디서 자랐는지, 지도에서 바로 볼 수 있습니다. 아래 라인업을 누르거나, 아무 커피 이름·산지·농장 이름이나 검색해 보세요.</p>
+    <div class="notes"><span class="note">게이샤</span><span class="note">예가체프</span><span class="note">파나마 에스메랄다</span><span class="note">케냐 니에리</span><span class="note">브라질 세하도</span></div>
+  </article>
+  <div class="quick">
+    <h3>지금 매장 라인업</h3>
+    <div class="qrow">
+      ${LINEUP.map((l) => `
+        <button class="qcard" data-id="${esc(l.id)}" type="button">
+          <div class="qtop">★ ${esc(l.country)}</div>
+          <div class="qn">${esc(l.ko.replace("페루 ", "").replace("과테말라 ", ""))}</div>
+          <div class="qm">${esc(l.region.split("(")[0].trim())}</div>
+        </button>`).join("")}
+    </div>
+  </div>
+  <div class="quick">
+    <h3>산지 둘러보기 · ${ORIGINS.length}곳</h3>
+    ${["et-yirgacheffe", "ke-nyeri", "co-huila", "pa-esmeralda", "br-cerrado", "id-lintong", "gt-antigua", "cr-tarrazu", "rw-nyamasheke", "pe-jaen"].map((id) => {
+      const o = ORIGINS.find((x) => x.id === id);
+      if (!o) return "";
+      return `<button class="res" data-id="${esc(o.id)}" type="button" style="margin-bottom:6px">
+        <span class="dot" style="background:#2F4636"></span>
+        <span><span class="rn">${esc(o.ko)}</span><span class="rm">${esc(o.alt)} · ${esc(o.variety)}</span></span>
+      </button>`;
+    }).join("")}
+  </div>
+  <div class="foot">
+    <b>KRUMBLE ROASTERS</b> · 커피 산지 &amp; 농장 지도 (프로토타입 v0.1)<br>
+    라인업 정보는 공급사 상품 페이지와 구매 기록 기준 · 대표 산지는 예시 데이터입니다.
+  </div>`;
+}
+
+function renderSheet(opts = {}) {
+  if (state.geocoding) {
+    sheetEl.innerHTML = `<div class="empty"><h3><span class="spin"></span>지도에서 찾는 중…</h3><p>내장 산지 목록에 없는 이름이라 OpenStreetMap에서 위치를 조회하고 있어요.</p></div>`;
+    return;
+  }
+  if (opts.error) {
+    sheetEl.innerHTML = `
+      <div class="empty">
+        <h3>“${esc(opts.error)}” 위치를 찾지 못했어요</h3>
+        <p>지명을 조금 더 넓게 입력해 보세요.<br>예: “파나마 보케테”, “에티오피아 구지”, “콜롬비아 후일라”</p>
+        <div class="tags">
+          ${["파나마 보케테", "에티오피아 구지", "콜롬비아 후일라", "케냐 니에리"].map((t) => `<button data-q="${esc(t)}">${esc(t)}</button>`).join("")}
+        </div>
+      </div>`;
+    bindSheet();
+    return;
+  }
+  if (state.selected) {
+    sheetEl.innerHTML = cardHTML(state.selected);
+    sheetEl.scrollTop = 0;
+  } else if (state.results && state.results.length > 1) {
+    sheetEl.innerHTML = resultsHTML(state.results);
+  } else {
+    sheetEl.innerHTML = introHTML();
+  }
+  bindSheet();
+}
+
+function bindSheet() {
+  sheetEl.querySelectorAll(".qcard[data-id], .res[data-id]").forEach((b) => {
+    b.onclick = () => {
+      const item = ALL.find((i) => i.id === b.dataset.id) || (state.livePin && state.livePin.id === b.dataset.id ? state.livePin : null);
+      if (item) selectItem(item, { fly: true, source: "list" });
+    };
+  });
+  sheetEl.querySelectorAll(".qcard[data-alt]").forEach((b) => {
+    b.onclick = () => {
+      const [lat, lon] = b.dataset.alt.split(",").map(Number);
+      if (!isFinite(lat) || !isFinite(lon)) return;
+      if (state.selected && state.selected.tier === "live") {
+        state.selected.lat = lat; state.selected.lon = lon;
+        state.livePin.lat = lat; state.livePin.lon = lon;
+        drawPins();
+        map.flyTo([lat, lon], 9, { duration: 1.2 });
+      }
+    };
+  });
+  sheetEl.querySelectorAll(".empty .tags button").forEach((b) => {
+    b.onclick = () => runSearch(b.dataset.q);
+  });
+  const cp = $("#copyBtn", sheetEl);
+  if (cp) {
+    cp.onclick = async () => {
+      try {
+        const full = BASE_URL + "?coffee=" + (state.selected ? state.selected.id : "");
+        await navigator.clipboard.writeText(full);
+        cp.textContent = "복사됨";
+        cp.classList.add("done");
+        setTimeout(() => { cp.textContent = "링크 복사"; cp.classList.remove("done"); }, 1600);
+      } catch (e) { cp.textContent = "길게 눌러 복사"; }
+    };
+  }
+}
+
+/* ---------- 8. 자동완성 ---------- */
+function hideSugg() { sugEl.classList.remove("on"); sugEl.innerHTML = ""; }
+
+function showSugg(query) {
+  const q = query.trim();
+  if (!q) return hideSugg();
+  const list = searchLocal(q).slice(0, 6);
+  if (!list.length) {
+    sugEl.innerHTML = `<div class="live">내장 산지 목록에 없어요 · <b>검색</b>을 누르면 지도에서 실시간으로 찾아봅니다</div>`;
+    sugEl.classList.add("on");
+    return;
+  }
+  sugEl.innerHTML = list.map((i) => `
+    <button type="button" data-id="${esc(i.id)}">
+      <span class="dot" style="background:${i.tier === "lineup" ? "#C2603C" : "#2F4636"}"></span>
+      <span>
+        <span class="nm">${esc(i.ko)}</span>
+        <span class="mt">${esc(i.country)} · ${esc(i.region)}${i.tier === "lineup" ? " · ★ 라인업" : ""}</span>
+      </span>
+    </button>`).join("");
+  sugEl.classList.add("on");
+  sugEl.querySelectorAll("button[data-id]").forEach((b) => {
+    b.onclick = () => {
+      const item = ALL.find((i) => i.id === b.dataset.id);
+      qEl.value = item.ko;
+      hideSugg();
+      state.results = null;
+      selectItem(item, { fly: true, source: "suggest" });
+    };
+  });
+}
+
+let suggestTimer = null;
+qEl.addEventListener("input", () => {
+  clearTimeout(suggestTimer);
+  suggestTimer = setTimeout(() => showSugg(qEl.value), 130);
+});
+qEl.addEventListener("focus", () => { if (qEl.value.trim()) showSugg(qEl.value); });
+qEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); runSearch(qEl.value); }
+  if (e.key === "Escape") hideSugg();
+});
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".search")) hideSugg();
+});
+$("#searchForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  runSearch(qEl.value);
+});
+
+/* ---------- 9. 시작 ---------- */
+function boot() {
+  renderChips();
+  drawPins();
+  renderSheet();
+
+  const params = new URLSearchParams(location.search);
+  const cid = params.get("coffee");
+  const q = params.get("q");
+  if (cid) {
+    const item = ALL.find((i) => i.id === cid);
+    if (item) {
+      state.filter = "all";
+      renderChips();
+      drawPins();
+      selectItem(item, { fly: true, source: "url" });
+      return;
+    }
+  }
+  if (q) {
+    qEl.value = q;
+    runSearch(q);
+    return;
+  }
+  // 첫 방문: 모바일은 라인업(★) 중심, 넓은 화면은 커피 벨트 전체
+  const narrow = window.innerWidth < 900;
+  map.fitBounds((narrow ? LINEUP : ALL).map((i) => [i.lat, i.lon]), {
+    padding: narrow ? [46, 46] : [22, 22], maxZoom: narrow ? 3 : 2
+  });
+}
+
+boot();
+
+// 디버그용 (콘솔에서 확인)
+window.__originMap = { ALL, LINEUP, ORIGINS, state, searchLocal, map };
+</script>
+</body>
+</html>
