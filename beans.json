@@ -17,15 +17,15 @@
 "beans": 2846,
 "listings": 3863,
 "countries": 33,
-"places": 165,
-"regions": 125,
+"places": 164,
+"regions": 124,
 "farms": 9
 },
 "precision": {
 "farm": 25,
 "region": 683,
-"village": 204,
-"country": 1934
+"village": 202,
+"country": 1936
 },
 "coordSource": "Photon/OpenStreetMap (ODbL), 일부 주요 산지는 관리 중심지 좌표로 보정"
 },
@@ -76,7 +76,7 @@
 "lon": -90.345759,
 "precision": "country",
 "evidence": "Guatemala, Guatemala",
-"beanCount": 166
+"beanCount": 168
 },
 {
 "id": "C|에티오피아",
@@ -1133,18 +1133,6 @@
 "precision": "country",
 "evidence": "Philippines, Philippines",
 "beanCount": 3
-},
-{
-"id": "R|과테말라|엘 인헤르또",
-"kind": "region",
-"country": "과테말라",
-"name": "엘 인헤르또",
-"nameEn": "El Injerto",
-"lat": 15.4909405,
-"lon": -91.7990863,
-"precision": "village",
-"evidence": "El Injerto, Chejoj, Huehuetenango, Guatemala",
-"beanCount": 2
 },
 {
 "id": "R|브라질|술 데 미나스",
@@ -2271,7 +2259,7 @@
 "id": "b0008",
 "name": "(과테말라) 엘 인헤르또 게이샤 워시드",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": "Geisha",
 "process": "풀리 워시드",
@@ -4395,7 +4383,7 @@
 "id": "b0096",
 "name": "과테말라 엘 인헤르또 SL28 워시드 2024",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "워시드",
@@ -4416,7 +4404,7 @@
 "id": "b0097",
 "name": "과테말라 엘 인헤르또 네이티보 블렌드 2026",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "풀리 워시드",
@@ -4437,7 +4425,7 @@
 "id": "b0098",
 "name": "과테말라 엘 인헤르또 레전더리 게이샤 로스 피노스 #El02",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": "로스 피노스 #el02",
 "variety": null,
 "process": "내추럴",
@@ -22840,13 +22828,13 @@
 "id": "b0931",
 "name": "Guatemala El Injerto Geisha Classic Washed",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "워시드",
 "cupNotes": [],
 "firstSeen": null,
-"placeId": "R|과테말라|엘 인헤르또",
+"placeId": "C|과테말라",
 "sources": [
 "생두모아"
 ],
@@ -25009,7 +24997,7 @@
 "id": "b1037",
 "name": "과테말라 엘 인헤르또 게이샤 클래식 애너로빅 내추럴",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "애너로빅 내추럴",
@@ -25031,7 +25019,7 @@
 "id": "b1038",
 "name": "과테말라 엘 인헤르또 파카마라 워시드",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "풀리 워시드",
@@ -25263,7 +25251,7 @@
 "id": "b1049",
 "name": "과테말라 인헤르또 옥션 랏 칼라카 게이샤 워시드",
 "country": "과테말라",
-"region": "엘 인헤르또",
+"region": null,
 "farm": null,
 "variety": null,
 "process": "워시드",
@@ -25274,7 +25262,7 @@
 "캐모마일"
 ],
 "firstSeen": "2026-10-01",
-"placeId": "R|과테말라|엘 인헤르또",
+"placeId": "C|과테말라",
 "sources": [
 "FIND MY GREEN COFFEE"
 ],

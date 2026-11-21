@@ -400,7 +400,7 @@ function pinIcon(item) {
   if (t === "farm") cls.push("farm");
   if (t === "country") cls.push("country");
   if (state.place && state.place.id === item.id) cls.push("sel");
-  const label = t === "lineup" ? "★" : (item.count > 99 ? "99" : String(item.count || ""));
+  const label = t === "lineup" ? "★" : (item.count > 999 ? "999" : String(item.count || ""));
   return L.divIcon({
     className: "pin-wrap",
     html: `<div class="${cls.join(" ")}"><i>${esc(label)}</i></div>`,
@@ -515,7 +515,7 @@ function cardForPlace(p) {
 
 function beanRow(b) {
   const meta = [ (b.region || b.country), b.process, b.variety ].filter(Boolean).join(" · ");
-  return `<button class="res ${state.bean && state.bean.id === b.id ? "on" : ""}" data-bean="${esc(b.id)}">
+  return `<button type="button" class="res ${state.bean && state.bean.id === b.id ? "on" : ""}" data-bean="${esc(b.id)}">
     <span class="dot" style="background:${b.placeId && placeById.get(b.placeId)?.kind === "farm" ? "#9A5B2E" : "#2F4636"}"></span>
     <span>
       <span class="rn">${esc(b.name)}</span>
@@ -609,7 +609,7 @@ function renderSheet() {
 
 function homeSheet() {
   const c = CAT.meta?.counts || {};
-  const topPlaces = (CAT.places || []).slice(0, 6);
+  const topPlaces = (CAT.places || []).filter((p) => p.kind !== "country").slice(0, 6);
   return `
   <div class="card">
     <div class="eyebrow">CATALOG</div>
@@ -630,7 +630,7 @@ function homeSheet() {
   <div class="quick">
     <h3>CRUMBLE LINEUP</h3>
     <div class="qrow">
-      ${LINEUP.map((l) => `<button class="qcard ${state.selectedLineup && state.selectedLineup.id === l.id ? "on" : ""}" data-lineup="${esc(l.id)}">
+      ${LINEUP.map((l) => `<button type="button" class="qcard ${state.selectedLineup && state.selectedLineup.id === l.id ? "on" : ""}" data-lineup="${esc(l.id)}">
         <span class="qtop">★ ${esc(l.country)}</span>
         <span class="qn">${esc(l.ko.replace(l.country + " ", ""))}</span>
         <span class="qm">${esc(l.farm.replace(/\(.*?\)/g, "").trim().slice(0, 26))}</span>
@@ -639,7 +639,7 @@ function homeSheet() {
   </div>
   ${topPlaces.length ? `<div class="results" style="margin-top:16px">
     <div class="res-head"><h2>생두가 많은 산지</h2><span>카탈로그</span></div>
-    ${topPlaces.map((p) => `<button class="res" data-place="${esc(p.id)}">
+    ${topPlaces.map((p) => `<button type="button" class="res" data-place="${esc(p.id)}">
       <span class="dot" style="background:${p.kind === "farm" ? "#9A5B2E" : p.kind === "country" ? "#8C8377" : "#2F4636"}"></span>
       <span><span class="rn">${esc(p.country)} · ${esc(p.name)}</span>
       <span class="rm">${(p.beanCount || 0).toLocaleString()}종 · ${p.precision === "country" ? "국가 단위" : p.precision === "farm" ? "농장 좌표" : "산지 단위"}</span></span>
@@ -709,7 +709,7 @@ function searchBeans(q) {
 function suggest(q) {
   const r = searchBeans(q).slice(0, 8);
   if (!r.length) { sugEl.innerHTML = `<div class="live">${esc(q)} — 카탈로그에서 찾지 못했습니다. 산지 이름이나 국가로 검색해 보세요.</div>`; return; }
-  sugEl.innerHTML = r.map((b) => `<button data-sb="${esc(b.id)}">
+  sugEl.innerHTML = r.map((b) => `<button type="button" data-sb="${esc(b.id)}">
     <span class="dot" style="background:#2F4636"></span>
     <span><span class="nm">${esc(b.name)}</span><span class="mt">${esc([b.country, b.region, b.process].filter(Boolean).join(" · "))}</span></span>
   </button>`).join("");
